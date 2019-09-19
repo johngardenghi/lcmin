@@ -1,0 +1,1130 @@
+module lcmin
+
+  use constants, only: dp
+
+  implicit none
+
+  public :: lcmin_load, lcmin_optimize, lcmin_params
+
+  private
+
+  type lcmin_params
+     ! Character parameters
+     character(len=80) :: initial_file   ! Output file for the initial point
+     character(len=80) :: output_file    ! LCMIN output file
+     character(len=80) :: solution_file  ! Output file for the solution found by LCMIN
+
+     ! Integer parameters
+     integer :: hnnzmax      ! Maximum size of nonzeros of the Hessian
+     integer :: hslunit      ! Stream for HSL output
+     integer :: maxhslfix    ! Maximum iterations trying to run an HSL routine
+     integer :: maxinnerit   ! Maximum inner iterations
+     integer :: maxouterit   ! Maximum outer iterations
+     integer :: iniunit      ! Stream for initial point output file
+     integer :: outunit      ! Stream for LCMIN output (besides screen)
+     integer :: solunit      ! Stream for solution output file
+
+     ! Logical parameters
+     logical :: scalea     ! Decides whether scaling the constraints
+     logical :: scalef     ! Decides whether scaling the objective function
+     logical :: printinit  ! Print inner iteration information
+     logical :: printtl    ! Print a table line with the results from LCMIN run
+
+     ! Double precision parameters
+     real(kind=dp) :: chiini    ! Initial perturbation on the PD system
+     real(kind=dp) :: chimin    ! Minimum value to perturbation on PD system
+     real(kind=dp) :: epstol    ! Optimality tolerance
+     real(kind=dp) :: epsfeas   ! Feasibility tolerance
+     real(kind=dp) :: gamma     ! Armijo constant
+     real(kind=dp) :: gmax      ! Constant for constraints and obj function scaling
+     real(kind=dp) :: imu       ! The initial value for the barrier parameter
+     real(kind=dp) :: infty     ! Numerical representation of infinity
+     real(kind=dp) :: kappad    ! Value used in the computation of the barrier function
+     real(kind=dp) :: kappaeps  ! Tolerance to optimality error on barrier subproblem
+     real(kind=dp) :: kappaip1  ! Constant for perturbation of box constraints
+     real(kind=dp) :: kappaip2  ! Constant for perturbation of box constraints
+     real(kind=dp) :: kappamu   ! Constant to update the barrier parameter
+     real(kind=dp) :: kappaz    ! Safeguard for the approximation of primal Hessian
+     real(kind=dp) :: kchibar   ! Constant to compute the perturbation on the PD system
+     real(kind=dp) :: kchimin   ! Constant to compute the perturbation on the PD system
+     real(kind=dp) :: kchimax   ! Constant to compute the perturbation on the PD system
+     real(kind=dp) :: smax      ! Constant to scale the optimality error
+     real(kind=dp) :: thetamu   ! Constant to update the barrier parameter
+     real(kind=dp) :: tmin      ! Minimum value of fraction to boundary
+     real(kind=dp) :: vartol    ! Variation tolerance
+  end type lcmin_params
+
+contains
+
+  ! -----------------------------------------------------------------------
+  ! ROUTINE OUTPUT
+  !
+  ! flag:
+  !     0   KKT optimality conditions sufficiently satisfied
+  !     1   LCMIN converged to an acceptable feasible point
+  !     2   LCMIN converged to an infeasible point
+  !   - 1   maximum outer iterations exceeded
+  !   - 2   lack of progress by variation between iterands
+  !   - 3   lack of progress by maximum inner iterations
+  !   - 4   the iterates are diverging - problem may be unbounded
+  !   - 5   it was not possible to find an strict feasible initial point
+  !   - 6   the feasible region is void
+  !   - 7   inertia correction perturbation is too large
+  !   - 8   there was a fatal error on a user routine (evalf, evalg or evalh)
+  !   - 9   HSL routine error
+  !   - 10  memory allocation error
+  ! -----------------------------------------------------------------------
+  
+  subroutine lcmin_load(param)
+
+    ! TYPE ARGUMENTS
+    type(lcmin_params), intent(out) :: param
+    
+    ! ----------------------------------------------------------------
+    ! This routine defines the default controlling parameters for the
+    ! solver.
+    ! ----------------------------------------------------------------
+
+    ! Character parameters
+    param%initial_file  = "initial_point.txt"
+    param%output_file   = "lcmin.out"
+    param%solution_file = "solution.txt"
+
+    ! Integer parameters
+    param%hnnzmax    = 100000
+    param%hslunit    = 50
+    param%maxhslfix  = 10
+    param%maxinnerit = 200
+    param%maxouterit = 50
+    param%iniunit    = 40
+    param%outunit    = 20
+    param%solunit    = 30
+
+    ! Logical parameters
+    param%scalea    = .true.
+    param%scalef    = .true.
+    param%printinit = .false.
+    param%printtl   = .false.
+
+    ! Double precision parameters
+    param%chiini   = 1.0d-04
+    param%chimin   = 1.0d-20
+    param%epstol   = 1.0d-08
+    param%epsfeas  = 1.0d-08
+    param%gamma    = 1.0d-04
+    param%gmax     = 1.0d+02
+    param%imu      = 1.0d-01
+    param%infty    = 1.0d+20
+    param%kappad   = 1.0d-04
+    param%kappaeps = 1.0d+01
+    param%kappaip1 = 1.0d-02
+    param%kappaip2 = 1.0d-02
+    param%kappamu  = 2.0d-01
+    param%kappaz   = 1.0d+10
+    param%kchibar  = 1.0d+02
+    param%kchimin  = 1.0d0 / 3.0d0
+    param%kchimax  = 8.0d0
+    param%smax     = 1.0d+02
+    param%thetamu  = 1.5d+00
+    param%tmin     = 9.9d-01
+    param%vartol   = 1.0d-12
+
+  end subroutine lcmin_load
+
+  ! ------------------------------------------------------------------
+
+  subroutine lcmin_optimize(n, x, l_orig, u_orig, m, bc, lambda, &
+       ar, ac, av, la, param, uevalf, uevalg, uevalh, flag)
+
+    use constants
+    use constraints
+    use initial_point
+    use seval
+    use testing
+    use user_subs
+    use util
+    use variables
+
+    ! SCALAR ARGUMENTS
+    integer, intent(in)  :: la, m, n
+    integer, intent(out) :: flag
+
+    ! ARRAY ARGUMENTS
+    integer,       dimension(la), intent(in)            :: ar, ac
+    real(kind=dp), dimension(la), intent(in)            :: av
+    real(kind=dp), dimension(m),  intent(in)            :: bc
+    real(kind=dp), dimension(n),  intent(in)            :: l_orig, u_orig
+    real(kind=dp), dimension(m),  intent(inout)         :: lambda
+    real(kind=dp), dimension(n),  intent(inout), target :: x
+
+    ! PROCEDURE ARGUMENTS
+    procedure(evalf) :: uevalf
+    procedure(evalg) :: uevalg
+    procedure(evalh) :: uevalh
+
+    ! TYPE ARGUMENTS
+    type(lcmin_params), intent(in) :: param
+
+    ! LOCAL SCALARS
+    integer :: allocstat, annz, annzrank, i, mred, nred
+    real    :: start, finish
+
+    ! LOCAL ARRAYS
+    integer,                    dimension(la) :: acol, arow
+    real(kind=dp),              dimension(la) :: aval
+    real(kind=dp),              dimension(m)  :: b
+    real(kind=dp),              dimension(n)  :: l, u
+    real(kind=dp), allocatable, dimension(:)  :: xred
+
+    flag = 0
+
+    ! ------------------------------------------------------------------
+    !                           PREPROCESSING                          
+    ! ------------------------------------------------------------------
+    
+    ! Start timing for preprocessing
+    call cpu_time( start )
+
+    ! Set up LCMIN global parameters
+    chiini     = param%chiini
+    chimin     = param%chimin
+    epsfeas    = param%epsfeas
+    epstol     = param%epstol
+    gamma      = param%gamma
+    gmax       = param%gmax
+    hnnzmax    = param%hnnzmax
+    hslunit    = param%hslunit
+    imu        = param%imu
+    infty      = param%infty
+    ini_file   = param%initial_file
+    kappad     = param%kappad
+    kappaeps   = param%kappaeps
+    kappaip1   = param%kappaip1
+    kappaip2   = param%kappaip2
+    kappamu    = param%kappamu
+    kappaz     = param%kappaz
+    kchibar    = param%kchibar
+    kchimin    = param%kchimin
+    kchimax    = param%kchimax
+    maxhslfix  = param%maxhslfix
+    maxinnerit = param%maxinnerit
+    maxouterit = param%maxouterit
+    out_file   = param%output_file
+    outunit    = param%outunit
+    printinit  = param%printinit
+    printtl    = param%printtl
+    scalea     = param%scalea
+    scalef     = param%scalef
+    smax       = param%smax
+    sol_file   = param%solution_file
+    solunit    = param%solunit
+    thetamu    = param%thetamu
+    tmin       = param%tmin
+    vartol     = param%vartol
+
+    ! Open output files
+    open(iniunit, file=ini_file)
+    open(solunit, file=sol_file)
+    open(outunit, file=out_file)
+
+    ! Writes initial information
+    write (      *, 7000) n, m
+    write (outunit, 7000) n, m
+
+    ! Writes user initial point to the file
+    write (iniunit, 2000)
+    write (iniunit, 9010) (i, x(i), i = 1, n)
+
+    ! Copies the original entries of A
+    annz = la
+
+    arow(1:annz) = ar(1:annz)
+    acol(1:annz) = ac(1:annz)
+    aval(1:annz) = av(1:annz)
+
+    b(1:m) = bc(1:m)
+
+    call set_constraints( m, bc, la, ar, ac, av )
+
+    ! Copies the original bounds
+    l(1:n) = l_orig(1:n)
+    u(1:n) = u_orig(1:n)
+
+    ! Sets the user subroutines
+    subf => uevalf
+    subg => uevalg
+    subh => uevalh
+
+    ! Points global variable to the user point
+    x_user => x
+
+    ! Saves the original number of variables
+    nprob = n
+
+    ! Computes the scale factor for A and scales it
+    if ( scalea ) then
+       call scale_constraints( m, b, annz, arow, acol, aval, flag )
+       if ( flag .ne. 0 ) go to 900
+    end if
+
+    ! call print_octave( m, n, la, ar, ac, av, 123, 'A', flag)
+    ! if ( flag .ne. 0 ) go to 900
+
+    ! call print_octave( m, bc, 123, 'b', flag)
+    ! if ( flag .ne. 0 ) go to 900
+
+    ! Check constraints for implicit equalities
+    call check_implicit_equalities( n, l, u, m, b, annz, arow, acol, &
+         aval, flag )
+    if ( flag .ne. 0 ) go to 900
+
+    ! Check bound constraints for fixed variables and reorder the
+    ! jacobian of the constraints to eliminate these if there is any.
+    call check_constraints_fxv( m, b, n, x, l, u, annz, arow, acol, &
+         aval, nred, flag )
+    if ( flag .ne. 0 ) go to 900
+
+    ! Allocates xred, LCMIN variables
+    allocate( xred(nred), stat=allocstat )
+    if ( allocstat .ne. 0 ) then
+       write (      *, 1000)
+       write (outunit, 1000)
+
+       flag = - 10
+       go to 900
+    end if
+
+    ! Check bound constraints for free variables. lind and uind hold the
+    ! indexes of non-free variables from below and non-free variables
+    ! from above, respectively.
+    call check_constraints_frv( nred, l(nfind), u(nfind), flag )
+    if ( flag .ne. 0 ) go to 900
+
+    ! Checks the jacobian of the constraints for linear dependent lines
+    call check_constraints_rank( nred, m, b, annz, arow, acol, &
+         aval, annzrank, mred, flag )
+    if ( flag .ne. 0 ) go to 900
+
+    ! Computes the initial point
+    call ipoint( nred, x(nfind), l(nfind), u(nfind), mred, b, annz, &
+         arow, acol, aval, xred, flag )
+    if ( flag .ne. 0 ) go to 900
+
+    ! Writes LCMIN initial point to the file
+    x(nfind(1:nred)) = xred
+
+    write (iniunit, 2010)
+    write (iniunit, 9010) (i, x(i), i = 1, n)
+
+900 continue
+
+    ! End timing for preprocessing
+    call cpu_time( finish )
+
+    pretime = finish - start
+
+    if ( flag .ne. 0 ) then
+    
+       ! Write null tabline
+       if ( printtl ) then
+          open ( 350, file="lcmin-tabline.out" )
+
+          ! Writes LCMIN flag
+          write (350, fmt='(I2)') flag
+          write (350, 650) n, m, "---", "---", "---", "---", "---",  &
+                           "---", "---", "---", "---", "---", "---", &
+                           "---", pretime, "---"
+          close (350)
+       end if
+
+    else
+
+       ! ------------------------------------------------------------------
+       !                           OPTIMIZATION                           
+       ! ------------------------------------------------------------------
+
+       ! Writes initial information
+       write(      *, 7010) nred, mred
+       write(outunit, 7010) nred, mred
+
+       ! Call solver
+       call lcmin_solver(nred, xred, l(nfind), u(nfind), mred, b, lambda, &
+            annz, arow, acol, aval, flag)
+
+    end if
+
+    ! ------------------------------------------------------------------
+    !                     WRITES THE FINAL RESULTS                     
+    ! ------------------------------------------------------------------
+
+    ! ---------------> TESTING
+    ! print *, "FEAS TEST = ", maxval( abs( smvp(m, la, ar, ac, av, x) - bc ) )
+    ! print *, "FEAS TEST = ", maxval( abs( smvp(mred, annz, arow, acol, aval, xred) - b ) )
+
+    ! Write the LCMIN exit flag
+    write (      *, 7020)
+    write (outunit, 7020)
+
+    select case ( flag )
+
+    case (2)
+       write (      *, 780)
+       write (outunit, 780)
+
+    case (1)
+       write (      *, 790)
+       write (outunit, 790)
+
+    case (0)
+       write (      *, 800)
+       write (outunit, 800)
+
+    case (-1)
+       write (      *, 810)
+       write (outunit, 810)
+
+    case (-2)
+       write (      *, 820)
+       write (outunit, 820)
+
+    case (-3)
+       write (      *, 830)
+       write (outunit, 830)
+
+    case (-4)
+       write (      *, 840)
+       write (outunit, 840)
+
+    case (-5)
+       write (      *, 850)
+       write (outunit, 850)
+
+    case (-6)
+       write (      *, 860)
+       write (outunit, 860)
+
+    case (-7)
+       write (      *, 870)
+       write (outunit, 870)
+
+    case (-8)
+       write (      *, 880)
+       write (outunit, 880)
+
+    case (-9)
+       write (      *, 890)
+       write (outunit, 890)
+
+    case (-10)
+       write (      *, 8100)
+       write (outunit, 8100)
+
+    end select
+
+    ! Writes the statistics
+    if( inneraccitcnt .gt. 0 ) then
+       write (      *, 9000) pretime, opttime, inneraccitcnt,        &
+                             outeritcnt, fevalcnt, gevalcnt,         &
+                             hevalcnt, bfevalcnt, bgevalcnt,         &
+                             real(inneraccitcnt) / real(outeritcnt), &
+                             real(fevalcnt) / real(inneraccitcnt),   &
+                             real(fevalcnt) / real(outeritcnt),      &
+                             real(gevalcnt) / real(inneraccitcnt),   &
+                             real(gevalcnt) / real(outeritcnt),      &
+                             real(hevalcnt) / real(inneraccitcnt),   &
+                             real(hevalcnt) / real(outeritcnt),      &
+                             real(bfevalcnt) / real(inneraccitcnt),  &
+                             real(bfevalcnt) / real(outeritcnt),     &
+                             real(bgevalcnt) / real(inneraccitcnt),  &
+                             real(bgevalcnt) / real(outeritcnt)
+
+       write (outunit, 9000) pretime, opttime, inneraccitcnt,        &
+                             outeritcnt, fevalcnt, gevalcnt,         &
+                             hevalcnt, bfevalcnt, bgevalcnt,         &
+                             real(inneraccitcnt) / real(outeritcnt), &
+                             real(fevalcnt) / real(inneraccitcnt),   &
+                             real(fevalcnt) / real(outeritcnt),      &
+                             real(gevalcnt) / real(inneraccitcnt),   &
+                             real(gevalcnt) / real(outeritcnt),      &
+                             real(hevalcnt) / real(inneraccitcnt),   &
+                             real(hevalcnt) / real(outeritcnt),      &
+                             real(bfevalcnt) / real(inneraccitcnt),  &
+                             real(bfevalcnt) / real(outeritcnt),     &
+                             real(bgevalcnt) / real(inneraccitcnt),  &
+                             real(bgevalcnt) / real(outeritcnt)
+
+    else
+       if ( outeritcnt .gt. 0 ) then
+          write (      *, 9000) pretime, opttime, inneraccitcnt, outeritcnt, &
+                                fevalcnt, gevalcnt, hevalcnt, bfevalcnt,     &
+                                bgevalcnt,                                   &
+                                real(inneraccitcnt) / real(outeritcnt),      &
+                                0.0_dp, real(fevalcnt) / real(outeritcnt),   &
+                                0.0_dp, real(gevalcnt) / real(outeritcnt),   &
+                                0.0_dp, real(hevalcnt) / real(outeritcnt),   &
+                                0.0_dp, real(bfevalcnt) / real(outeritcnt),  &
+                                0.0_dp, real(bgevalcnt) / real(outeritcnt)
+
+          write (outunit, 9000) pretime, opttime, inneraccitcnt, outeritcnt, &
+                                fevalcnt, gevalcnt, hevalcnt, bfevalcnt,     &
+                                bgevalcnt,                                   &
+                                real(inneraccitcnt) / real(outeritcnt),      &
+                                0.0_dp, real(fevalcnt) / real(outeritcnt),   &
+                                0.0_dp, real(gevalcnt) / real(outeritcnt),   &
+                                0.0_dp, real(hevalcnt) / real(outeritcnt),   &
+                                0.0_dp, real(bfevalcnt) / real(outeritcnt),  &
+                                0.0_dp, real(bgevalcnt) / real(outeritcnt)
+       else
+          write (      *, 9000) pretime, opttime, inneraccitcnt, outeritcnt, &
+                                fevalcnt, gevalcnt, hevalcnt, bfevalcnt,     &
+                                bgevalcnt, 0.0_dp, 0.0_dp, 0.0_dp, 0.0_dp,   &
+                                0.0_dp, 0.0_dp, 0.0_dp, 0.0_dp, 0.0_dp,      &
+                                0.0_dp, 0.0_dp
+
+          write (outunit, 9000) pretime, opttime, inneraccitcnt, outeritcnt, &
+                                fevalcnt, gevalcnt, hevalcnt, bfevalcnt,     &
+                                bgevalcnt, 0.0_dp, 0.0_dp, 0.0_dp, 0.0_dp,   &
+                                0.0_dp, 0.0_dp, 0.0_dp, 0.0_dp, 0.0_dp,      &
+                                0.0_dp, 0.0_dp
+       end if
+    end if
+    
+    ! Writes the solution to the file
+    ! TODO: fix lambda to deal with rank-deficient A
+    write (solunit, 9020)
+    write (solunit, 9010) (i, x(i), i = 1, n)
+    write (solunit, 9030)
+    write (solunit, 9010) (i, lambda(i), i = 1, m)
+
+    close( outunit )
+    close( solunit )
+
+    deallocate( find, lind, lnu, nfind, sa, uind, unl, xred, &
+         stat=allocstat )
+
+    nullify( subf, subg, subh, x_user )
+
+    ! NONEXECUTABLE STATEMENTS
+650 format(2(I6, 3X), 2(A24, 3X), 3(A11, 3X), 7(A7, 3X), F9.2, 3X, A9, "   &")
+
+780 format(/, 5X, "Convergence to an infeasible point.")
+
+790 format(/, 5X, "Acceptable feasible optimal solution found.")
+
+800 format(/, 5X, "Optimal solution found.")
+
+810 format(/, 5X, "Maximum outer iterations exceeded.")
+
+820 format(/, 5X, "Lack of progress.")
+
+830 format(/, 5X, "Maximum inner iterations exceeded.")
+
+840 format(/, 5X, "Iterates diverging: the problem may be unbounded.")
+
+850 format(/, 5X, "Unable to find an interior initial point.", &
+           /, 5X, "The interior of the feasible region may be void.")
+
+860 format(/, 5X, "The problem may be infeasible.")
+
+870 format(/, 5X, "Inertia correction failed.")
+
+880 format(/, 5X, "There was a fatal error on a evaluation subroutine.")
+
+890 format(/, 5X, "There was a fatal error on a HSL subroutine.")
+
+8100 format(/, 5X, "Memory allocation error.")
+
+1000 format(/, 1X, "ERROR (lcmin): Unable to allocate memory.")
+
+1010 format(/, 1X, "ERROR (lcmin): Unable to deallocate memory.")
+
+2000 format(/, 1X, "USER INITIAL POINT:", //, 3X, "INDEX", 4X, "X(INDEX)")
+
+2010 format(/, 1X, "LCMIN INITIAL POINT:", //, 3X, "INDEX", 4X, "X(INDEX)")
+
+7000 format(/, 1X, "Number of variables            : ", I7, &
+            /, 1X, "Number of equality constraints : ", I7)
+
+7010 format(/, 1X, "Starting LCMIN.", &
+            /, 1X, "Number of variables   : ", I7, &
+            /, 1X, "Number of constraints : ", I7)
+
+7020 format(/, 1X, "Flag of LCMIN:")
+
+9000 format(/, 1X, "====================================================", &
+            /, 1X, "                     STATISTICS                     ", &
+            /, 1X, "====================================================", &
+            /, 1X, "GENERAL:                                            ", &
+           //, 1X, "          Preprocessing time (in seconds): ", F9.2,    &
+            /, 1X, "           Optimization time (in seconds): ", F9.2,    &
+           //, 1X, "                     Inner Iterations (IIT): ", I7,    &
+            /, 1X, "                     Outer Iterations (OIT): ", I7,    &
+            /, 1X, "                 Function Evaluations (FEV): ", I7,    &
+            /, 1X, "        Function Gradient Evaluations (GEV): ", I7,    &
+            /, 1X, "         Function Hessian Evaluations (HEV): ", I7,    &
+            /, 1X, "         Barrier Function Evaluations (BFE): ", I7,    &
+            /, 1X, "Barrier Function Gradient Evaluations (BGE): ", I7,    &
+            /, 1X, "====================================================", &
+            /, 1X, "AVERAGE:                                            ", &
+           //, 1X, "Inner Iterations per Outer Iterations  : ", F11.4,     &
+            /, 1X, "FEV per IIT: ", F11.4, 4X, "FEV per OIT: ", F11.4,     &
+            /, 1X, "GEV per IIT: ", F11.4, 4X, "GEV per OIT: ", F11.4,     &
+            /, 1X, "HEV per IIT: ", F11.4, 4X, "HEV per OIT: ", F11.4,     &
+            /, 1X, "BFE per IIT: ", F11.4, 4X, "BFE per OIT: ", F11.4,     &
+            /, 1X, "BGE per IIT: ", F11.4, 4X, "BGE per OIT: ", F11.4,     &
+            /, 1X, "====================================================", /)
+
+9010 format(1X, I7, 2X, 1P, D24.16)
+
+9020 format(/, 1X, "FINAL POINT:", //, 3X, "INDEX", 4X, "X(INDEX)")
+
+9030 format(/, 1X, "LAGRANGE MULTIPLIERS:", //, 3X, "INDEX", 4X, "LAMBDA(INDEX)")
+
+  end subroutine lcmin_optimize
+
+  ! *******************************************************************
+  ! *******************************************************************
+
+  subroutine lcmin_solver(n, x, l, u, m, b, lambda, annz, arow, acol, &
+       aval, flag)
+
+    use constants
+    use constraints
+    use initial_point
+    use kktsys_solver
+    use seval
+    use util
+    use variables
+
+    ! SCALAR ARGUMENTS
+    integer, intent(in)  :: annz, m, n
+    integer, intent(out) :: flag
+
+    ! ARRAY ARGUMENTS
+    integer,       dimension(annz), intent(in)    :: acol, arow
+    real(kind=dp), dimension(annz), intent(in)    :: aval
+    real(kind=dp), dimension(m),    intent(in)    :: b
+    real(kind=dp), dimension(n),    intent(in)    :: l, u
+    real(kind=dp), dimension(m),    intent(inout) :: lambda
+    real(kind=dp), dimension(n),    intent(inout) :: x
+
+    ! LOCAL SCALARS
+    integer       :: btcnt, cnt, hnnz, i
+    real          :: infinish, instart, finish, start
+    real(kind=dp) :: alpha, alphamax, alphazl, alphazu, barfunc,       &
+                     barfuncn, complnorm, compunorm, func, gtd, inerr, &
+                     lambdanorm, laggradnorm, outerr, scafeas, mu, sd, &
+                     sl, snormsup, su, tau, unscafeas, xnormsup,       &
+                     zlnorm, zunorm, plaggrad
+
+    ! LOCAL ARRAYS
+    integer,       dimension(hnnzmax) :: hcol, hrow
+    real(kind=dp), dimension(hnnzmax) :: hval
+    real(kind=dp), dimension(m)       :: dlambda
+    real(kind=dp), dimension(n)       :: bgrad, dx, grad, laggrad, xnew
+    real(kind=dp), dimension(nl)      :: dzl, lgap, zl
+    real(kind=dp), dimension(nu)      :: dzu, ugap, zu
+
+    ! Start timing for optimization
+    call cpu_time( start )
+
+    ! COUNTERS INITIALIZATION
+    inneraccitcnt = 0
+    inneritcnt    = 0
+    outeritcnt    = 0
+    fevalcnt      = 0
+    gevalcnt      = 0
+    hevalcnt      = 0
+    bfevalcnt     = 0
+    bgevalcnt     = 0
+    smallsd       = 0
+
+    ! PARAMETERS INITIALIZATION
+    mu = imu
+
+    sd = 1.0d0
+    sl = 1.0d0
+    su = 1.0d0
+
+    snormsup = bignum
+    xnormsup = 0.0d0
+
+    lgap(1:nl) = x(lind) - l(lind)
+    ugap(1:nu) = u(uind) - x(uind)
+
+    zl(1:nl) = 1.0d0
+    zu(1:nu) = 1.0d0
+
+    ! Computes the scale factor for f
+    call sevalg( .false., 1.0d0, grad, flag )
+    if(flag .lt. 0) return
+
+    if ( scalef ) then
+       sf = max( macheps12, min( 1.0d0, gmax / infnorm(grad(1:n)) ) )
+
+       if ( sf .ne. 1.0d0 ) grad(1:n) = sf * grad(1:n)
+    else
+       sf = 1.0d0
+    end if
+
+    ! Computes the function value at the current point
+    call sevalf( scalef, sf, func, flag )
+    if ( flag .ne. 0 ) return
+
+    ! Estimates initial lagrange multipliers
+    if( m .gt. 0 ) then
+       call imult( m, n, grad, zl, zu, annz, arow, acol, aval, lambda )
+    end if
+
+    ! Writes the initial lagrange multipliers to the file
+    write(iniunit, 200)
+    write(iniunit, 100) ( cnt, lambda(cnt), cnt = 1, m )
+
+    close(iniunit)
+
+    ! Writes scaling information
+    write (      *, 300) sf, minval(sa, 1)
+    write (outunit, 300) sf, minval(sa, 1)
+
+    ! ------------------------------------------------------------------
+    !                              MAIN LOOP
+    ! ------------------------------------------------------------------
+    do
+       ! Process time for the current iteration
+       call cpu_time( instart )
+
+       ! =============================================================
+       !                     VERIFY STOP CRITERIA
+       ! =============================================================
+
+       ! Required values to compute the optimality error
+       lambdanorm = norm1( lambda(1:m) )
+       zlnorm     = norm1( zl(1:nl) )
+       zunorm     = norm1( zu(1:nu) )
+
+       if( (m + nl + nu) .gt. 0 ) then
+          sd = max(smax, (lambdanorm + zlnorm + zunorm) / (m + nl + nu)) / smax
+       end if
+
+       if( nl .gt. 0 ) then
+          sl = max(smax, zlnorm / nl) / smax
+       end if
+
+       if( nu .gt. 0 ) then
+          su = max(smax, zunorm / nu) / smax
+       end if
+
+       ! Norm of the lagrangian gradient
+       laggrad(1:n) = grad(1:n) + smvp( n, annz, acol, arow, aval, lambda(1:m) )
+       laggrad(lind(1:nl)) = laggrad(lind(1:nl)) - zl(1:nl)
+       laggrad(uind(1:nu)) = laggrad(uind(1:nu)) + zu(1:nu)
+       laggradnorm = infnorm(laggrad(1:n))
+
+       complnorm = infnorm( lgap(1:nl) * zl(1:nl) - mu )
+       compunorm = infnorm( ugap(1:nu) * zu(1:nu) - mu )
+
+       ! Optimality error for the barrier subproblem
+       inerr = max( laggradnorm / sd, complnorm / sl, compunorm / su )
+
+       complnorm = infnorm( lgap(1:nl) * zl(1:nl) )
+       compunorm = infnorm( ugap(1:nu) * zu(1:nu) )
+
+       ! Optimality error for the main problem (mu = 0)
+       outerr = max( laggradnorm / sd, complnorm / sl, compunorm / su )
+
+       ! If it is the first iteration, prints the statistics of iteration 0
+       if ( inneraccitcnt .eq. 0 ) then
+          call next_iteration(" ")
+       end if
+
+       ! -------------------------------------------------------------
+       ! Stop criteria for the outer problem
+       ! -------------------------------------------------------------
+
+       if ( outerr .le. epstol ) then
+          call next_iteration("C")
+          flag = 0
+          exit
+       end if
+
+       ! Number of iterations
+       if ( outeritcnt .gt. maxouterit ) then
+          flag = - 1
+          exit
+       end if
+       ! -------------------------------------------------------------
+
+       ! -------------------------------------------------------------
+       ! Stop criteria for the inner problem
+       ! Updates the barrier parameter and increments outerit counter
+       ! -------------------------------------------------------------
+
+       ! Optimality condition
+       if ( inerr .le. kappaeps * mu ) then
+          do
+             call next_iteration("C")
+             
+             complnorm = infnorm( lgap(1:nl) * zl(1:nl) - mu )
+             compunorm = infnorm( ugap(1:nu) * zu(1:nu) - mu )
+
+             ! Optimality error for the barrier subproblem
+             inerr = max( laggradnorm / sd, complnorm / sl, compunorm / su )
+
+             if ( ( inerr .gt. kappaeps * mu ) .or. flag .eq. - 1 ) exit
+          end do
+
+       ! Number of consecutive small search directions or small variation on x
+       ! else if ( snormsup .le. max( macheps23, macheps * xnormsup ) ) then
+       !    call next_iteration("P")
+
+       !    if ( flag .eq. -1 ) then
+       !       flag = - 2
+       !       exit
+       !    end if
+
+       ! Number of inner iterations
+       else if ( inneritcnt .gt. maxinnerit ) then
+          call next_iteration("M")
+
+          if ( flag .eq. -1 ) then
+             flag = - 3
+             exit
+          end if
+
+       ! Norm sup of the iterates
+       else if ( xnormsup .ge. infty ) then
+          call next_iteration("D")
+          flag = - 4
+          exit
+
+       end if
+       ! -------------------------------------------------------------
+
+       ! Evalutes the Hessian at the current point
+       call sevalh( n, scalef, sf, hnnz, hrow, hcol, hval, flag )
+
+       ! Evaluates the barrier gradient (needed by kktsys and
+       ! backtracking)
+       ! call sevalbg( mu, n, grad, lgap, ugap, bgrad, flag )
+       call sevalbg( mu, n, x, grad, l, u, bgrad, flag )
+       if ( flag .lt. 0 ) exit
+
+       ! Solve the KKT system to find the directions
+       call kktsys( mu, n, x, grad, lgap, ugap, m, lambda, zl, zu, &
+            annz, arow, acol, aval, hnnz, hrow, hcol, hval, dx,    &
+            dlambda, dzl, dzu, flag )
+       if(flag .lt. 0) exit
+
+       ! Fraction to boundary
+       tau = max(tmin, 1 - mu)
+
+       ! Computes step sizes
+       alphamax = 1.0d0
+       alphazl  = 1.0d0
+       alphazu  = 1.0d0
+
+       do i = 1, nl
+          if ( dx(lind(i)) .lt. 0.0d0 ) then
+             alphamax = min( alphamax, - tau * lgap(i) / dx(lind(i)) )
+          end if
+
+          if ( dzl(i) .lt. 0.0d0 ) then
+             alphazl = min( alphazl, - tau * zl(i) / dzl(i) )
+          end if
+       end do
+    
+       do i = 1, nu
+          if ( dx(uind(i)) .gt. 0.0d0 ) then
+             alphamax = min( alphamax, tau * ugap(i) / dx(uind(i)) )
+          end if
+
+          if ( dzu(i) .lt. 0.0d0 ) then
+             alphazu = min( alphazu, - tau * zu(i) / dzu(i) )
+          end if
+       end do
+
+       ! Backtracking
+       btcnt = 0
+       alpha = alphamax
+
+       if ( maxval( abs(dx(1:n)) / ( 1.0d0 + abs(x(1:n)) ) ) .lt. 1.0d+01 * macheps ) then
+          if ( ( smallsd .ge. 2 ) .and. ( ( mu - 1.0d-01 * epstol ) .le. macheps ) ) then
+             flag = - 2
+             return
+          end if
+
+          smallsd = smallsd + 1
+
+          ! Updates the trial point with the maximum step size
+          xnew(1:n) = x(1:n) + alpha * dx(1:n)
+          call seval_setpoint( n, xnew )
+
+       else
+          smallsd = 0
+
+          call sevalbf( mu, n, x, l, u, .false., scalef, sf, func, &
+               barfunc, flag, lgap, ugap )
+          if ( flag .ne. 0 ) return
+
+          gtd = dot_product( bgrad(1:n), dx(1:n) )
+
+          do
+             ! Updates the trial point
+             xnew(1:n) = x(1:n) + alpha * dx(1:n)
+
+             call seval_setpoint( n, xnew )
+
+             call sevalbf( mu, n, xnew, l, u, .true., scalef, sf, func, &
+                  barfuncn, flag )
+             if ( flag .ne. 0 ) return
+
+             ! Armijo condition
+             if ( barfuncn .le. barfunc + gamma * alpha * gtd ) exit
+
+             alpha = 5.0d-01 * alpha
+             btcnt = btcnt + 1
+          end do
+       end if
+
+       ! Computes the step size
+       snormsup = infnorm( xnew(1:n) - x(1:n) )
+
+       ! Computes x sup norm
+       xnormsup = infnorm( x(1:n) )
+
+       ! Updates the point
+       x(1:n)      = xnew(1:n)
+       ! lambda(1:m) = lambda(1:m) +   alpha * dlambda(1:m)
+       lambda(1:m) = lambda(1:m) + dlambda(1:m)
+       zl(1:nl)    =    zl(1:nl) + alphazl * dzl(1:nl)
+       zu(1:nu)    =    zu(1:nu) + alphazu * dzu(1:nu)
+
+       ! Updates lgap and ugap
+       lgap(1:nl) = x(lind) - l(lind)
+       ugap(1:nu) = u(uind) - x(uind)
+
+       ! Safeguard to the values of zl and zu
+       zl(1:nl) = max( min( zl(1:nl), kappaz * (mu / lgap(1:nl)) ), (1.0d0 / kappaz) * (mu / lgap(1:nl)) )
+       zu(1:nu) = max( min( zu(1:nu), kappaz * (mu / ugap(1:nu)) ), (1.0d0 / kappaz) * (mu / ugap(1:nu)) )
+
+       ! Evaluates the objective function value and gradient of the
+       ! objective funcion at the new point
+       call sevalg( scalef, sf, grad, flag )
+       if(flag .lt. 0) return
+
+       ! Increments the inner iteration counter
+       inneritcnt    = inneritcnt + 1
+       inneraccitcnt = inneraccitcnt + 1
+
+       ! Process time for current iteration
+       call cpu_time( infinish )
+
+       ! Prints inner iteration information
+       if ( printinit ) then
+          if ( mod(inneritcnt-1, 10) .eq. 0 ) then
+             write (      *, 400)
+             write (outunit, 400)
+          end if
+
+          scafeas = infnorm( smvp(m, annz, arow, acol, aval, x) - b )
+
+          write (      *, 450) inneritcnt, mu, func/sf, func,     &
+                               scafeas, minval(lgap,1),           &
+                               minval(ugap,1), pertnw, pertse,    &
+                               norm1(dx), alphamax, alpha, inerr, &
+                               outerr, infinish - instart
+
+          write (outunit, 450) inneritcnt, mu, func/sf, func,     &
+                               scafeas, minval(lgap,1),           &
+                               minval(ugap,1), pertnw, pertse,    &
+                               norm1(dx), alphamax, alpha, inerr, &
+                               outerr, infinish - instart
+
+       end if
+
+       ! Print table line
+       if ( printtl ) then
+          open ( 350, file="lcmin-tabline.out" )
+
+          scafeas   = infnorm( smvp(m, annz, arow, acol, aval, x) - b )
+          if ( scalea ) then
+             unscafeas = infnorm( ( smvp(m, annz, arow, acol, aval, x) - b ) / sa(1:m) )
+          else
+             unscafeas = scafeas
+          end if
+
+          ! Computes current optimization time
+          call cpu_time( finish )
+
+          ! Writes LCMIN flag
+          write (350, fmt='(I2)') 50
+
+          write (350, 600) n, m, func, func/sf, scafeas, unscafeas, &
+                           outerr, fevalcnt, gevalcnt, hevalcnt,    &
+                           bfevalcnt, bgevalcnt, inneraccitcnt,     &
+                           outeritcnt, pretime, finish-start
+          close ( 350 )
+       end if
+
+    end do
+
+    ! Evaluates the scaled constraints feasibility of the final point
+    scafeas = eval_feas( x_user, .true. )
+
+    ! Evaluates the unscaled constraints feasibility of the final point
+    unscafeas = eval_feas( x_user, .false. )
+
+    ! End timing for optimization
+    call cpu_time( finish )
+    opttime = finish - start
+
+    ! Writes the final KKT results
+    write (      *, 500) func, func / sf, laggradnorm / sd, laggradnorm, &
+                         scafeas, unscafeas, complnorm / sl, complnorm,  &
+                         compunorm / su, compunorm
+
+    write (outunit, 500) func, func / sf, laggradnorm / sd, laggradnorm, &
+                         scafeas, unscafeas, complnorm / sl, complnorm,  &
+                         compunorm / su, compunorm
+
+    ! Checks final feasibility and reports
+    if ( flag .eq. 0 .and. unscafeas .gt. epsfeas ) then
+       if ( unscafeas .le. sqrt(epsfeas) ) then
+          ! LCMIN converged to an acceptable feasible point
+          flag = 1
+       else
+          flag = 2
+       end if
+    end if
+
+    ! Print table line
+    if ( printtl ) then
+       open ( 350, file="lcmin-tabline.out" )
+
+       ! Writes LCMIN flag
+       write (350, fmt='(I2)') flag
+
+       write (350, 600) n, m, func, func/sf, scafeas, unscafeas, &
+                        outerr, fevalcnt, gevalcnt, hevalcnt,    &
+                        bfevalcnt, bgevalcnt, inneraccitcnt,     &
+                        outeritcnt, pretime, opttime
+
+       close ( 350 )
+    end if
+
+    ! NON EXECUTABLE STATEMENTS
+100 format(1X, I7, 2X, 1P, D24.16)
+
+200 format(/, 1X, "ESTIMATE OF LAGRANGE MULTIPLIERS:", //, 3X, "INDEX", &
+               4X, "LAMBDA(INDEX)")
+
+300 format(/, 1X, "Scale factor for the objective function   : ", 1P, D7.1, &
+           /, 1X, "Smallest scale factor for the constraints : ", 1P, D7.1)
+
+400 format(/, 4X, "inner", 1X, "barrier", 1X, " obj func ", 1X, "  scaled  ", 1X, "  scaled  ", &
+              1X, "  min  ", 1X, "  min  ", 1X, "NW pert", 1X, "SE pert", 1X, "  step  ",       &
+              1X, "  alpha ", 1X, "  alpha ", 1X, "  inner  ", 1X, "  outer  ", 1X, "time (s)", &
+
+           /, 4X, " ite ", 1X, " param ", 1X, "   value  ", 1X, " obj func ", 1X, "   feas   ", &
+              1X, "  x-l  ", 1X, "  u-x  ", 1X, "        ", 1X, "      ", 1X, "  norm  ",       &
+              1X, "   max  ", 1X, "        ", 1X, " opt err ", 1X, " opt err ")
+                                                                                                                                                            
+450 format(4X, I5, 1X, 1P, D7.1, 3(1X, 1P, D10.3), 2(1X, 1P, D7.1), 2(1X, I7), &
+           3(1X, 1P, D8.2), 2(1X, 1P, D9.3), 1X, 0P, F8.2)
+
+500 format(   1X, "====================================================================", &
+          //, 1X, "FINAL RESULTS:",                                           &
+           /, 1X, "                  ", 9X, "scaled", 9X, 2X, 8X, "unscaled", &
+           /, 1X, " Objective Funct: ", 1P, D24.16, 2X, 1P, D24.16,           &
+           /, 1X, " Lagrangian Grad: ", 1P, D24.16, 2X, 1P, D24.16,           &
+           /, 1X, "Final Point Feas: ", 1P, D24.16, 2X, 1P, D24.16,           &
+           /, 1X, "Lower Bound Comp: ", 1P, D24.16, 2X, 1P, D24.16,           &
+           /, 1X, "Upper Bound Comp: ", 1P, D24.16, 2X, 1P, D24.16)
+
+600 format(2(I6, 3X), 1P, 2(D24.16, 3X), 3(D11.4, 3X), 7(I7, 3X), 0P, &
+           2(F9.2, 3X), "&")
+
+  contains
+
+    subroutine next_iteration(reason)
+
+      ! SCALAR ARGUMENT
+      character(len=1), intent(in) :: reason
+
+      ! LOCAL SCALAR
+      real(kind=4)  :: tmp
+      real(kind=dp) :: err, feas
+
+      if(reason .eq. " ") then
+         ! The optimization is just starting, print initial information
+         write (*, 800)
+         write (outunit, 800)
+
+         write (      *, 820) outeritcnt, func / sf, func, inerr, outerr, &
+                              inneraccitcnt
+         write (outunit, 820) outeritcnt, func / sf, func, inerr, outerr, &
+                              inneraccitcnt
+      else
+         ! Updates iteration counters
+         outeritcnt = outeritcnt + 1
+         inneritcnt = 0
+
+         ! Write information on the screen and in the output file
+         if ( mod(outeritcnt, 10) .eq. 0 ) then
+            write (      *, 800)
+            write (outunit, 800)
+
+         else if ( printinit ) then
+            write (      *, fmt="(/)")
+            write (outunit, fmt="(/)")
+         end if
+
+         write (      *, 810) outeritcnt, mu, func / sf, func, &
+                              inerr, outerr, inneraccitcnt, reason
+         write (outunit, 810) outeritcnt, mu, func / sf, func, &
+                              inerr, outerr, inneraccitcnt, reason
+
+         ! Updates barrier parameter
+         if(abs(mu - epstol/10.0d0) .le. macheps) then
+            flag = - 1
+         else
+            mu = max(epstol/10.0d0, min(kappamu * mu, mu ** thetamu))
+         end if
+
+         ! -----> TESTING ----------------------------------
+         ! feas = infnorm(smvp(size(bc), la, ar, ac, av, x) - bc)
+
+         ! complnorm = infnorm(lgap * zl)
+         ! compunorm = infnorm(ugap * zu)
+         ! err = max(laggradnorm / sd, complnorm / sl, compunorm / su)
+
+         ! call cpu_time(tmp)
+
+         ! open(372, file='results.tmp')
+         ! write (372, fmt='(I3)') 10
+         ! write (372, 905) n, size(bc), nred, m, func/sf, feas, err, fevalcnt, &
+         !                  inneraccitcnt, outeritcnt, pretime, tmp - tstart
+         ! close(372)
+         ! -------------------------------------------------
+
+      end if
+
+      ! NONEXECUTABLE STATEMENTS
+800   format(/, 1X, "====================================================================", &
+           /, 1X, "outer", 1X, "barrier", 1X, "  objective  ", 1X,            &
+           "    scaled   ", 1X, "  inner  ", 1X, "  outer  ", 1X, "inner", &
+           /, 1X, " ite ", 1X, " param ", 1X, "   function  ", 1X,            &
+           "  obj funct  ", 1X, " opt err ", 1X, " opt err ", 1X, " ite ")
+
+810   format(1X, I5, 1X, 1P, D7.1, 2(1X, 1P, D13.6), 2(1X, 1P, D9.3), 1X, I5, A1)
+
+820   format(1X, I5, 8X,           2(1X, 1P, D13.6), 2(1X, 1P, D9.3), 1X, I5)
+
+905   format(4(I6, 1X, "&", 1X), 3(1P, D11.4, 1X, "&", 1X), &
+             3(I7, 1X, "&", 1X), 0P, F9.2, 1X, "&", 1X, 0P, F9.2, " \\ \hline")
+
+    end subroutine next_iteration
+
+  end subroutine lcmin_solver
+
+end module lcmin
