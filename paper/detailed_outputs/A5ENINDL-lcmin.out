@@ -1,0 +1,346 @@
+
+ ==============================================================================
+ This is ALGENCAN 3.1.1.
+ ALGENCAN, an Augmented Lagrangian method for nonlinear programming, is part of
+ the TANGO Project: Trustable Algorithms for Nonlinear General Optimization.
+ See http://www.ime.usp.br/~egbirgin/tango/ for details.
+ ==============================================================================
+
+ Processing array of parameters with   3 entrances:
+
+ IGNORE-OBJECTIVE-FUNCTION                    
+ ITERATIONS-OUTPUT-DETAIL                                                    11
+ NEWTON-LINE-SEARCH-INNER-SOLVER                                    'MA57 MC64'
+
+ The specification file is not being used.
+
+ Available HSL subroutines = MA57           
+
+ ALGENCAN PARAMETERS:
+
+ firstde                =                    T
+ seconde                =                    T
+ truehpr                =                    T
+ hptype in TN           =               TRUEHP
+ lsslvr in TR           =            MA57/NONE
+ lsslvr in NW           =            MA57/MC64
+ lsslvr in ACCPROC      =            MA57/NONE
+ innslvr                =                   NW
+ accproc                =                    T
+ rmfixv                 =                    T
+ slacks                 =                    F
+ scale                  =                    T
+ epsfeas                =           1.0000D-09
+ epsopt                 =           1.0000D-08
+ efstain                =           3.1623D-05
+ eostain                =           1.0000D-12
+ efacc                  =           3.1623D-05
+ eoacc                  =           1.0000D-04
+ iprint                 =                   11
+ ncomp                  =                    6
+
+ Specification filename =                   ''
+ Output filename        =          'lcmin.out'
+ Solution filename      =                   ''
+
+ Number of variables               :   20002
+ Number of equality constraints    :   15002
+ Number of inequality constraints  :       0
+ Number of bound constraints       :   10000
+ Number of fixed variables         :       0
+
+ There are no fixed variables to be removed.
+
+ Objective function scale factor   : 1.0D+00
+ Smallest constraints scale factor : 1.0D-01
+
+     Entry to GENCAN.
+     Number of variables:   20002
+     Required optimality tolerance: 1.0D-08
+
+     It         function  gpsupn   xsupn stesupn   nfree   SPGit in-face    fcnt
+      0   1.05381647D-14 4.1D-09 1.0D+01
+      1   5.44626277D-17 2.2D-09 1.0D+01 3.4D-06   12503       0       1       3
+      2   1.28506877D-25 5.0D-13 1.0D+01 8.0D-08   12503       0       2       4
+
+     Flag of GENCAN: Solution was found.
+
+
+ User-provided subroutines calls counters: 
+
+ Subroutine fsub     (coded=F):        0
+ Subroutine gsub     (coded=F):        0
+ Subroutine hsub     (coded=F):        0
+ Subroutine csub     (coded=F):        0 (       0 calls per constraint in avg)
+ Subroutine jacsub   (coded=F):        0 (       0 calls per constraint in avg)
+ Subroutine hcsub    (coded=F):        0 (       0 calls per constraint in avg)
+ Subroutine fcsub    (coded=T):        4
+ Subroutine gjacsub  (coded=T):        5
+ Subroutine gjacpsub (coded=F):        0
+ Subroutine hlsub    (coded=T):        2
+ Subroutine hlpsub   (coded=F):        0
+
+
+ Total CPU time in seconds =     0.03
+
+ ==============================================================================
+
+ Initial point computed successfully.
+
+                                            achieved                  desired        
+ Unscaled feasibility ..............:   5.0448534238967113D-13   1.0000000000000001D-09
+ Smallest distance to lower bound ..:   1.0000000000000000D-02   1.0000000000000000D-03
+
+ Starting LCMIN.
+ Number of variables   :   20002
+ Number of constraints :   15002
+
+ Scale factor for the objective function   : 1.0D+00
+ Smallest scale factor for the constraints : 1.0D+00
+
+ ==========================================================
+ outer barrier   objective       scaled      outer   inner
+  ite   param     function     obj funct    opt err   ite 
+     0 1.0D-01  1.356860D+02  1.356860D+02 1.000D+01     0 
+
+    inner barrier   scaled     scaled     min     min    NW   SE     dx      alpha    alpha    inner   time (s)
+     ite   param   obj func     feas      x-l     u-x   pert pert   norm      max             opt err 
+        1 1.0D-01  6.073D+02  4.974D-14 1.0D-02 0.0D+00    0    0 1.18D+03 1.00D+00 1.00D+00 2.025D-01     0.02
+
+
+     1 2.0D-02  6.072660D+02  6.072660D+02 3.025D-01     1C
+
+    inner barrier   scaled     scaled     min     min    NW   SE     dx      alpha    alpha    inner   time (s)
+     ite   param   obj func     feas      x-l     u-x   pert pert   norm      max             opt err 
+        1 2.0D-02  1.162D+02  3.091D-13 2.0D-03 0.0D+00    0    0 6.92D+02 1.00D+00 1.00D+00 1.084D-02     0.02
+
+
+     2 2.8D-03  1.161986D+02  1.161986D+02 3.084D-02     2C
+
+
+     3 1.5D-04  1.161986D+02  1.161986D+02 3.084D-02     2C
+
+    inner barrier   scaled     scaled     min     min    NW   SE     dx      alpha    alpha    inner   time (s)
+     ite   param   obj func     feas      x-l     u-x   pert pert   norm      max             opt err 
+        1 1.5D-04  1.435D+01  2.274D-13 1.5D-05 0.0D+00    0    0 6.62D+02 1.00D+00 1.00D+00 6.275D-03     0.02
+        2 1.5D-04  3.994D+00  5.684D-14 1.5D-05 0.0D+00    0    0 3.04D+02 1.00D+00 1.00D+00 1.532D-03     0.02
+        3 1.5D-04  1.477D+00  1.101D-13 1.5D-05 0.0D+00    0    0 1.44D+02 1.00D+00 1.00D+00 3.487D-04     0.02
+
+
+     4 1.8D-06  1.477478D+00  1.477478D+00 4.992D-04     5C
+
+    inner barrier   scaled     scaled     min     min    NW   SE     dx      alpha    alpha    inner   time (s)
+     ite   param   obj func     feas      x-l     u-x   pert pert   norm      max             opt err 
+        1 1.8D-06  2.833D-01  5.649D-13 1.8D-07 0.0D+00    0    0 8.84D+01 1.00D+00 1.00D+00 1.239D-04     0.02
+        2 1.8D-06  7.661D-02  5.684D-14 1.8D-07 0.0D+00    0    0 4.38D+01 1.00D+00 1.00D+00 3.051D-05     0.02
+        3 1.8D-06  2.498D-02  3.624D-13 1.8D-07 0.0D+00    0    0 2.12D+01 1.00D+00 1.00D+00 7.193D-06     0.02
+
+
+     5 2.5D-09  2.497925D-02  2.497925D-02 9.038D-06     8C
+
+    inner barrier   scaled     scaled     min     min    NW   SE     dx      alpha    alpha    inner   time (s)
+     ite   param   obj func     feas      x-l     u-x   pert pert   norm      max             opt err 
+        1 2.5D-09  5.114D-03  1.847D-13 2.5D-10 0.0D+00    0    0 1.20D+01 1.00D+00 1.00D+00 2.258D-06     0.02
+        2 2.5D-09  1.286D-03  4.228D-13 2.5D-10 0.0D+00    0    0 6.02D+00 1.00D+00 1.00D+00 5.639D-07     0.02
+        3 2.5D-09  3.294D-04  5.684D-14 2.5D-10 0.0D+00    0    0 3.00D+00 1.00D+00 1.00D+00 1.404D-07     0.02
+        4 2.5D-09  9.020D-05  4.512D-13 2.5D-10 0.0D+00    0    0 1.49D+00 1.00D+00 1.00D+00 3.448D-08     0.02
+        5 2.5D-09  3.048D-05  2.061D-13 2.5D-10 0.0D+00    0    0 7.14D-01 1.00D+00 1.00D+00 8.035D-09     0.02
+
+
+     6 1.0D-09  3.048259D-05  3.048259D-05 1.054D-08    13C
+
+
+     7 1.0D-09  3.048259D-05  3.048259D-05 1.054D-08    13C
+
+
+     8 1.0D-09  3.048259D-05  3.048259D-05 1.054D-08    13C
+
+
+     9 1.0D-09  3.048259D-05  3.048259D-05 1.054D-08    13C
+
+
+
+ ==========================================================
+ outer barrier   objective       scaled      outer   inner
+  ite   param     function     obj funct    opt err   ite 
+    10 1.0D-09  3.048259D-05  3.048259D-05 1.054D-08    13C
+
+
+    11 1.0D-09  3.048259D-05  3.048259D-05 1.054D-08    13C
+
+
+    12 1.0D-09  3.048259D-05  3.048259D-05 1.054D-08    13C
+
+
+    13 1.0D-09  3.048259D-05  3.048259D-05 1.054D-08    13C
+
+
+    14 1.0D-09  3.048259D-05  3.048259D-05 1.054D-08    13C
+
+
+    15 1.0D-09  3.048259D-05  3.048259D-05 1.054D-08    13C
+
+
+    16 1.0D-09  3.048259D-05  3.048259D-05 1.054D-08    13C
+
+
+    17 1.0D-09  3.048259D-05  3.048259D-05 1.054D-08    13C
+
+
+    18 1.0D-09  3.048259D-05  3.048259D-05 1.054D-08    13C
+
+
+    19 1.0D-09  3.048259D-05  3.048259D-05 1.054D-08    13C
+
+
+
+ ==========================================================
+ outer barrier   objective       scaled      outer   inner
+  ite   param     function     obj funct    opt err   ite 
+    20 1.0D-09  3.048259D-05  3.048259D-05 1.054D-08    13C
+
+
+    21 1.0D-09  3.048259D-05  3.048259D-05 1.054D-08    13C
+
+
+    22 1.0D-09  3.048259D-05  3.048259D-05 1.054D-08    13C
+
+
+    23 1.0D-09  3.048259D-05  3.048259D-05 1.054D-08    13C
+
+
+    24 1.0D-09  3.048259D-05  3.048259D-05 1.054D-08    13C
+
+
+    25 1.0D-09  3.048259D-05  3.048259D-05 1.054D-08    13C
+
+
+    26 1.0D-09  3.048259D-05  3.048259D-05 1.054D-08    13C
+
+
+    27 1.0D-09  3.048259D-05  3.048259D-05 1.054D-08    13C
+
+
+    28 1.0D-09  3.048259D-05  3.048259D-05 1.054D-08    13C
+
+
+    29 1.0D-09  3.048259D-05  3.048259D-05 1.054D-08    13C
+
+
+
+ ==========================================================
+ outer barrier   objective       scaled      outer   inner
+  ite   param     function     obj funct    opt err   ite 
+    30 1.0D-09  3.048259D-05  3.048259D-05 1.054D-08    13C
+
+
+    31 1.0D-09  3.048259D-05  3.048259D-05 1.054D-08    13C
+
+
+    32 1.0D-09  3.048259D-05  3.048259D-05 1.054D-08    13C
+
+
+    33 1.0D-09  3.048259D-05  3.048259D-05 1.054D-08    13C
+
+
+    34 1.0D-09  3.048259D-05  3.048259D-05 1.054D-08    13C
+
+
+    35 1.0D-09  3.048259D-05  3.048259D-05 1.054D-08    13C
+
+
+    36 1.0D-09  3.048259D-05  3.048259D-05 1.054D-08    13C
+
+
+    37 1.0D-09  3.048259D-05  3.048259D-05 1.054D-08    13C
+
+
+    38 1.0D-09  3.048259D-05  3.048259D-05 1.054D-08    13C
+
+
+    39 1.0D-09  3.048259D-05  3.048259D-05 1.054D-08    13C
+
+
+
+ ==========================================================
+ outer barrier   objective       scaled      outer   inner
+  ite   param     function     obj funct    opt err   ite 
+    40 1.0D-09  3.048259D-05  3.048259D-05 1.054D-08    13C
+
+
+    41 1.0D-09  3.048259D-05  3.048259D-05 1.054D-08    13C
+
+
+    42 1.0D-09  3.048259D-05  3.048259D-05 1.054D-08    13C
+
+
+    43 1.0D-09  3.048259D-05  3.048259D-05 1.054D-08    13C
+
+
+    44 1.0D-09  3.048259D-05  3.048259D-05 1.054D-08    13C
+
+
+    45 1.0D-09  3.048259D-05  3.048259D-05 1.054D-08    13C
+
+
+    46 1.0D-09  3.048259D-05  3.048259D-05 1.054D-08    13C
+
+
+    47 1.0D-09  3.048259D-05  3.048259D-05 1.054D-08    13C
+
+
+    48 1.0D-09  3.048259D-05  3.048259D-05 1.054D-08    13C
+
+
+    49 1.0D-09  3.048259D-05  3.048259D-05 1.054D-08    13C
+
+
+
+ ==========================================================
+ outer barrier   objective       scaled      outer   inner
+  ite   param     function     obj funct    opt err   ite 
+    50 1.0D-09  3.048259D-05  3.048259D-05 1.054D-08    13C
+
+
+    51 1.0D-09  3.048259D-05  3.048259D-05 1.054D-08    13M
+ ==========================================================
+
+ FINAL RESULTS:
+                            scaled                   unscaled
+  Objective Funct:   3.0482585541800018D-05    3.0482585541800018D-05
+  Lagrangian Grad:   4.0657581468206416D-20    4.0657581468206416D-20
+ Final Point Feas:   2.0605739337042905D-13    2.0605739337042905D-13
+ Bounds violation:   0.0000000000000000D+00    0.0000000000000000D+00
+ Lower Bound Comp:   1.0540717180918572D-08    1.0540717180918572D-08
+ Upper Bound Comp:   0.0000000000000000D+00    0.0000000000000000D+00
+
+ Flag of LCMIN:
+
+     Maximum outer iterations exceeded.
+
+ ====================================================
+                      STATISTICS                     
+ ====================================================
+ GENERAL:                                            
+
+           Preprocessing time (in seconds):      0.78
+            Optimization time (in seconds):      0.33
+
+                      Inner Iterations (IIT):      13
+                      Outer Iterations (OIT):      51
+                  Function Evaluations (FEV):      14
+         Function Gradient Evaluations (GEV):      14
+          Function Hessian Evaluations (HEV):      13
+          Barrier Function Evaluations (BFE):      26
+ Barrier Function Gradient Evaluations (BGE):      13
+ ====================================================
+ AVERAGE:                                            
+
+ Inner Iterations per Outer Iterations  :      0.2549
+ FEV per IIT:      1.0769    FEV per OIT:      0.2745
+ GEV per IIT:      1.0769    GEV per OIT:      0.2745
+ HEV per IIT:      1.0000    HEV per OIT:      0.2549
+ BFE per IIT:      2.0000    BFE per OIT:      0.5098
+ BGE per IIT:      1.0000    BGE per OIT:      0.2549
+ ====================================================
+

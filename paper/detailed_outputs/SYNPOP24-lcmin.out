@@ -1,0 +1,34 @@
+
+ Number of variables            :    6968
+ Number of equality constraints :    7353
+
+ Flag of LCMIN:
+
+     The problem may be infeasible.
+
+ ====================================================
+                      STATISTICS                     
+ ====================================================
+ GENERAL:                                            
+
+           Preprocessing time (in seconds):      0.01
+            Optimization time (in seconds):      0.00
+
+                      Inner Iterations (IIT):       0
+                      Outer Iterations (OIT):       0
+                  Function Evaluations (FEV):       0
+         Function Gradient Evaluations (GEV):       0
+          Function Hessian Evaluations (HEV):       0
+          Barrier Function Evaluations (BFE):       0
+ Barrier Function Gradient Evaluations (BGE):       0
+ ====================================================
+ AVERAGE:                                            
+
+ Inner Iterations per Outer Iterations  :      0.0000
+ FEV per IIT:      0.0000    FEV per OIT:      0.0000
+ GEV per IIT:      0.0000    GEV per OIT:      0.0000
+ HEV per IIT:      0.0000    HEV per OIT:      0.0000
+ BFE per IIT:      0.0000    BFE per OIT:      0.0000
+ BGE per IIT:      0.0000    BGE per OIT:      0.0000
+ ====================================================
+

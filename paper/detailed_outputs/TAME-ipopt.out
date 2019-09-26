@@ -1,0 +1,92 @@
+sifdecoder -A pc64.lnx.gfo -st   TAME
+
+ Problem name: TAME
+
+ Double precision version will be formed
+
+ The objective function uses 1 nonlinear group
+ 
+ There is 1 linear equality constraint
+ 
+ There are 2 variables bounded only from below 
+ 
+ 
+ File successfully decoded
+ CUTEST: tools (double precision version) compiled successfully
+ CUTEst: ipopt (double precision version) compiled successfully
+
+******************************************************************************
+This program contains Ipopt, a library for large-scale nonlinear optimization.
+ Ipopt is released as open source code under the Eclipse Public License (EPL).
+         For more information visit http://projects.coin-or.org/Ipopt
+******************************************************************************
+
+This is Ipopt version trunk, running with linear solver ma57.
+
+Number of nonzeros in equality constraint Jacobian...:        2
+Number of nonzeros in inequality constraint Jacobian.:        0
+Number of nonzeros in Lagrangian Hessian.............:        3
+
+Total number of variables............................:        2
+                     variables with only lower bounds:        2
+                variables with lower and upper bounds:        0
+                     variables with only upper bounds:        0
+Total number of equality constraints.................:        1
+Total number of inequality constraints...............:        0
+        inequality constraints with only lower bounds:        0
+   inequality constraints with lower and upper bounds:        0
+        inequality constraints with only upper bounds:        0
+
+iter    objective    inf_pr   inf_du lg(mu)  ||d||  lg(rg) alpha_du alpha_pr  ls
+   0  0.0000000e+00 9.80e-01 0.00e+00  -1.0 0.00e+00    -  0.00e+00 0.00e+00   0
+   1  0.0000000e+00 0.00e+00 4.70e+01  -1.7 4.90e-01    -  2.06e-02 1.00e+00f  1
+   2  0.0000000e+00 0.00e+00 2.00e-07  -1.7 0.00e+00    -  1.00e+00 1.00e+00   0
+   3  0.0000000e+00 0.00e+00 1.50e-09  -3.8 0.00e+00    -  1.00e+00 1.00e+00   0
+   4  0.0000000e+00 0.00e+00 1.84e-11  -5.7 0.00e+00    -  1.00e+00 1.00e+00   0
+   5  0.0000000e+00 0.00e+00 2.51e-14  -8.6 0.00e+00    -  1.00e+00 1.00e+00T  0
+
+Number of Iterations....: 5
+
+                                   (scaled)                 (unscaled)
+Objective...............:   0.0000000000000000e+00    0.0000000000000000e+00
+Dual infeasibility......:   2.5059035640133008e-14    2.5059035640133008e-14
+Constraint violation....:   0.0000000000000000e+00    0.0000000000000000e+00
+Complementarity.........:   2.5059035596800701e-09    2.5059035596800701e-09
+Overall NLP error.......:   2.5059035596800701e-09    2.5059035596800701e-09
+
+
+Number of objective function evaluations             = 6
+Number of objective gradient evaluations             = 6
+Number of equality constraint evaluations            = 6
+Number of inequality constraint evaluations          = 0
+Number of equality constraint Jacobian evaluations   = 6
+Number of inequality constraint Jacobian evaluations = 0
+Number of Lagrangian Hessian evaluations             = 5
+Total CPU secs in IPOPT (w/o function evaluations)   =      0.009
+Total CPU secs in NLP function evaluations           =      0.000
+
+EXIT: Optimal Solution Found.
+
+************************ CUTEst statistics ************************
+
+
+ Package used            :  IPOPT
+ Problem                 :  TAME      
+ # variables             =               2
+ # constraints           =               1
+ # objective functions   =        0.1300000E+02
+ # objective gradients   =        0.7000000E+01
+ # objective Hessians    =        0.6000000E+01
+ # Hessian-vector prdct  =        0.0000000E+00
+ # constraints functions =        0.1400000E+02
+ # constraints gradients =        0.8000000E+01
+ # constraints Hessians  =        0.6000000E+01
+ Exit code               =               0
+ Final f                 =        0.0000000000000000D+00
+ Bounds feasibility      =        0.0000000000000000D+00
+ Set up time             =            0.00 seconds
+ Solve time              =            0.03 seconds
+
+
+******************************************************************
+

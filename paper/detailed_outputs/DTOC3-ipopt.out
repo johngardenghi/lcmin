@@ -1,0 +1,89 @@
+sifdecoder -A pc64.lnx.gfo -st   DTOC3
+
+ Problem name: DTOC3
+
+ Double precision version will be formed
+
+ The objective function uses 1499 nonlinear groups
+ 
+ There are 2998 linear equality constraints
+ 
+ There are 4497 free variables
+ There are 2 fixed variables
+ 
+ 
+ File successfully decoded
+ CUTEST: tools (double precision version) compiled successfully
+ CUTEst: ipopt (double precision version) compiled successfully
+
+******************************************************************************
+This program contains Ipopt, a library for large-scale nonlinear optimization.
+ Ipopt is released as open source code under the Eclipse Public License (EPL).
+         For more information visit http://projects.coin-or.org/Ipopt
+******************************************************************************
+
+This is Ipopt version trunk, running with linear solver ma57.
+
+Number of nonzeros in equality constraint Jacobian...:    10489
+Number of nonzeros in inequality constraint Jacobian.:        0
+Number of nonzeros in Lagrangian Hessian.............:     4497
+
+Total number of variables............................:     4497
+                     variables with only lower bounds:        0
+                variables with lower and upper bounds:        0
+                     variables with only upper bounds:        0
+Total number of equality constraints.................:     2998
+Total number of inequality constraints...............:        0
+        inequality constraints with only lower bounds:        0
+   inequality constraints with lower and upper bounds:        0
+        inequality constraints with only upper bounds:        0
+
+iter    objective    inf_pr   inf_du lg(mu)  ||d||  lg(rg) alpha_du alpha_pr  ls
+   0  0.0000000e+00 1.50e+01 0.00e+00  -1.0 0.00e+00    -  0.00e+00 0.00e+00   0
+   1  2.3521637e+02 1.76e-15 5.04e-15  -1.0 1.57e+01    -  1.00e+00 1.00e+00h  1
+
+Number of Iterations....: 1
+
+                                   (scaled)                 (unscaled)
+Objective...............:   2.3521636791725118e+02    2.3521636791725118e+02
+Dual infeasibility......:   5.0411064211886014e-15    5.0411064211886014e-15
+Constraint violation....:   1.7622622111579389e-15    1.7622622111579389e-15
+Complementarity.........:   0.0000000000000000e+00    0.0000000000000000e+00
+Overall NLP error.......:   5.0411064211886014e-15    5.0411064211886014e-15
+
+
+Number of objective function evaluations             = 2
+Number of objective gradient evaluations             = 2
+Number of equality constraint evaluations            = 2
+Number of inequality constraint evaluations          = 0
+Number of equality constraint Jacobian evaluations   = 2
+Number of inequality constraint Jacobian evaluations = 0
+Number of Lagrangian Hessian evaluations             = 1
+Total CPU secs in IPOPT (w/o function evaluations)   =      0.047
+Total CPU secs in NLP function evaluations           =      0.006
+
+EXIT: Optimal Solution Found.
+
+************************ CUTEst statistics ************************
+
+
+ Package used            :  IPOPT
+ Problem                 :  DTOC3     
+ # variables             =            4499
+ # constraints           =            2998
+ # objective functions   =        0.5000000E+01
+ # objective gradients   =        0.3000000E+01
+ # objective Hessians    =        0.2000000E+01
+ # Hessian-vector prdct  =        0.0000000E+00
+ # constraints functions =        0.6000000E+01
+ # constraints gradients =        0.4000000E+01
+ # constraints Hessians  =        0.2000000E+01
+ Exit code               =               0
+ Final f                 =        2.3521636791725118D+02
+ Bounds feasibility      =        0.0000000000000000D+00
+ Set up time             =            0.37 seconds
+ Solve time              =            0.17 seconds
+
+
+******************************************************************
+

@@ -1,0 +1,95 @@
+sifdecoder -A pc64.lnx.gfo -st   UBH1
+
+ Problem name: UBH1
+
+ Double precision version will be formed
+
+ The objective function uses 1 nonlinear group
+ 
+ There are 6000 linear equality constraints
+ 
+ There are 5994 free variables
+ There are 3003 variables bounded from below and above 
+ There are 12 fixed variables
+ 
+ 
+ File successfully decoded
+ CUTEST: tools (double precision version) compiled successfully
+ CUTEst: ipopt (double precision version) compiled successfully
+
+******************************************************************************
+This program contains Ipopt, a library for large-scale nonlinear optimization.
+ Ipopt is released as open source code under the Eclipse Public License (EPL).
+         For more information visit http://projects.coin-or.org/Ipopt
+******************************************************************************
+
+This is Ipopt version trunk, running with linear solver ma57.
+
+Number of nonzeros in equality constraint Jacobian...:    23982
+Number of nonzeros in inequality constraint Jacobian.:        0
+Number of nonzeros in Lagrangian Hessian.............:     3003
+
+Total number of variables............................:     8997
+                     variables with only lower bounds:        0
+                variables with lower and upper bounds:     3003
+                     variables with only upper bounds:        0
+Total number of equality constraints.................:     6000
+Total number of inequality constraints...............:        0
+        inequality constraints with only lower bounds:        0
+   inequality constraints with lower and upper bounds:        0
+        inequality constraints with only upper bounds:        0
+
+iter    objective    inf_pr   inf_du lg(mu)  ||d||  lg(rg) alpha_du alpha_pr  ls
+   0  0.0000000e+00 1.00e+03 0.00e+00  -1.0 0.00e+00    -  0.00e+00 0.00e+00   0
+Reallocating memory for MA57: lfact (185837)
+   1  1.1163078e+00 4.18e-13 8.00e-14  -1.0 2.26e+03    -  1.00e+00 1.00e+00h  1
+   2  1.1160120e+00 4.31e-13 5.55e-17  -2.5 7.22e-01    -  1.00e+00 1.00e+00f  1
+   3  1.1160033e+00 4.16e-13 2.21e-17  -3.8 1.49e-01    -  1.00e+00 1.00e+00h  1
+   4  1.1160033e+00 4.10e-13 2.43e-17  -5.7 1.45e-03    -  1.00e+00 1.00e+00h  1
+   5  1.1160033e+00 3.82e-13 2.47e-17  -8.6 6.51e-06    -  1.00e+00 1.00e+00h  1
+
+Number of Iterations....: 5
+
+                                   (scaled)                 (unscaled)
+Objective...............:   1.1160032615650304e+00    1.1160032615650304e+00
+Dual infeasibility......:   2.4721503598564010e-17    2.4721503598564010e-17
+Constraint violation....:   3.8236080968090391e-13    3.8236080968090391e-13
+Complementarity.........:   2.5060813091951913e-09    2.5060813091951913e-09
+Overall NLP error.......:   2.5060813091951913e-09    2.5060813091951913e-09
+
+
+Number of objective function evaluations             = 6
+Number of objective gradient evaluations             = 6
+Number of equality constraint evaluations            = 6
+Number of inequality constraint evaluations          = 0
+Number of equality constraint Jacobian evaluations   = 6
+Number of inequality constraint Jacobian evaluations = 0
+Number of Lagrangian Hessian evaluations             = 5
+Total CPU secs in IPOPT (w/o function evaluations)   =      0.166
+Total CPU secs in NLP function evaluations           =      0.012
+
+EXIT: Optimal Solution Found.
+
+************************ CUTEst statistics ************************
+
+
+ Package used            :  IPOPT
+ Problem                 :  UBH1      
+ # variables             =            9009
+ # constraints           =            6000
+ # objective functions   =        0.1300000E+02
+ # objective gradients   =        0.7000000E+01
+ # objective Hessians    =        0.6000000E+01
+ # Hessian-vector prdct  =        0.0000000E+00
+ # constraints functions =        0.1400000E+02
+ # constraints gradients =        0.8000000E+01
+ # constraints Hessians  =        0.6000000E+01
+ Exit code               =               0
+ Final f                 =        1.1160032615650304D+00
+ Bounds feasibility      =        0.0000000000000000D+00
+ Set up time             =            0.60 seconds
+ Solve time              =            0.35 seconds
+
+
+******************************************************************
+

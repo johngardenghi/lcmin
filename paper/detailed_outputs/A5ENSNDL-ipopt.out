@@ -1,0 +1,142 @@
+sifdecoder -A pc64.lnx.gfo -st   A5ENSNDL
+
+ Problem name: A5ENSNDL
+
+ Double precision version will be formed
+
+ The objective function uses 2 linear groups
+ 
+ There are 15002 linear equality constraints
+ 
+ There are 10002 free variables
+ There are 10000 variables bounded only from below 
+ There are 25004 fixed variables
+ 
+ 
+ File successfully decoded
+ CUTEST: tools (double precision version) compiled successfully
+ CUTEst: ipopt (double precision version) compiled successfully
+
+******************************************************************************
+This program contains Ipopt, a library for large-scale nonlinear optimization.
+ Ipopt is released as open source code under the Eclipse Public License (EPL).
+         For more information visit http://projects.coin-or.org/Ipopt
+******************************************************************************
+
+This is Ipopt version trunk, running with linear solver ma57.
+
+Number of nonzeros in equality constraint Jacobian...:    53021
+Number of nonzeros in inequality constraint Jacobian.:        0
+Number of nonzeros in Lagrangian Hessian.............:    25002
+
+Total number of variables............................:    20002
+                     variables with only lower bounds:    10000
+                variables with lower and upper bounds:        0
+                     variables with only upper bounds:        0
+Total number of equality constraints.................:    15002
+Total number of inequality constraints...............:        0
+        inequality constraints with only lower bounds:        0
+   inequality constraints with lower and upper bounds:        0
+        inequality constraints with only upper bounds:        0
+
+iter    objective    inf_pr   inf_du lg(mu)  ||d||  lg(rg) alpha_du alpha_pr  ls
+   0  4.9999900e-01 9.92e+01 6.96e-01  -1.0 0.00e+00    -  0.00e+00 0.00e+00   0
+Reallocating memory for MA57: lfact (1787737)
+   1  4.9435064e-01 9.90e+01 1.19e+00  -1.0 7.62e+01  -4.0 9.95e-04 2.02e-03h  1
+   2  6.1946712e-01 9.84e+01 2.22e+00  -1.0 1.03e+01  -4.5 2.04e-03 6.22e-03h  1
+   3  2.3082689e+00 9.52e+01 2.81e+00  -1.0 1.08e+01  -5.0 8.64e-03 3.28e-02f  1
+   4  1.6984507e+02 4.39e+01 5.86e+00  -1.0 9.64e+00  -5.4 4.81e-02 5.38e-01f  1
+   5  1.6515524e+02 3.82e+01 1.72e+01  -1.0 5.08e+01  -5.9 6.92e-01 1.31e-01f  1
+   6  2.4481985e+02 1.66e+01 8.49e+00  -1.0 7.80e+00  -6.4 5.94e-01 5.65e-01f  1
+   7  3.2162583e+02 7.21e+00 1.22e+02  -1.0 3.33e+00  -6.9 1.67e-01 5.66e-01h  1
+   8  3.5205299e+02 4.29e+00 3.40e+02  -1.0 2.26e+00  -7.3 6.23e-02 4.05e-01h  1
+   9  3.6640771e+02 2.98e+00 2.39e+02  -1.0 1.91e+00  -7.8 3.28e-01 3.06e-01h  1
+iter    objective    inf_pr   inf_du lg(mu)  ||d||  lg(rg) alpha_du alpha_pr  ls
+  10  3.8070563e+02 1.73e+00 4.79e+03  -1.0 9.08e-01  -8.3 1.00e+00 4.17e-01h  1
+  11  3.9589231e+02 4.66e-01 6.05e+04  -1.0 2.39e-01  -8.8 5.72e-02 7.31e-01h  1
+  12  3.9817680e+02 2.78e-01 1.06e+05  -1.0 1.44e-01  -9.2 2.84e-02 4.03e-01h  1
+  13  3.9906540e+02 2.05e-01 7.81e+04  -1.0 1.49e-01  -9.7 2.39e-02 2.62e-01h  1
+  14  3.9971418e+02 1.54e-01 6.22e+04  -1.0 1.22e-01 -10.2 8.30e-03 2.52e-01f  1
+  15  4.0009053e+02 1.23e-01 4.97e+04  -1.0 1.09e-01 -10.7 3.64e-01 2.02e-01h  1
+  16  4.0077990e+02 6.56e-02 2.69e+04  -1.0 2.97e-02 -11.2 1.00e+00 4.65e-01h  1
+  17  4.0129018e+02 2.34e-02 2.57e+05  -1.0 1.16e-02 -11.6 6.92e-02 6.43e-01h  1
+  18  4.0142502e+02 1.23e-02 3.67e+05  -1.0 5.41e-03 -12.1 4.96e-02 4.76e-01h  1
+  19  4.0146333e+02 9.10e-03 2.67e+05  -1.0 6.65e-03 -12.6 1.23e-01 2.58e-01h  1
+iter    objective    inf_pr   inf_du lg(mu)  ||d||  lg(rg) alpha_du alpha_pr  ls
+  20  4.0146556e+02 8.92e-03 5.34e+05  -1.0 3.60e-03 -13.1 1.01e-01 2.02e-02h  5
+  21  4.0151542e+02 4.80e-03 2.62e+06  -1.0 2.09e-03 -13.5 5.93e-02 4.62e-01h  1
+Reallocating memory for MA57: lfact (2238785)
+  22  4.0151773e+02 4.61e-03 2.51e+06  -1.0 2.10e-03 -14.0 9.57e-03 3.96e-02f  4
+  23  4.0153386e+02 3.28e-03 1.87e+06  -1.0 2.01e-03 -14.5 8.89e-01 2.89e-01h  1
+Reallocating memory for MA57: lfact (5147156)
+  24  4.0155896e+02 1.20e-03 4.25e+05  -1.0 5.29e-04 -15.0 4.61e-01 6.32e-01h  1
+Reallocating memory for MA57: lfact (6065496)
+  25  4.0156650e+02 5.82e-04 1.49e+07  -1.0 3.13e-04 -15.5 3.95e-02 5.17e-01h  1
+  26  4.0156959e+02 3.27e-04 8.44e+07  -1.0 1.89e-04 -15.0 1.59e-02 4.39e-01h  1
+  27  4.0157012e+02 2.84e-04 7.32e+07  -1.0 2.35e-04 -14.6 2.53e-02 1.32e-01f  2
+  28  4.0157231e+02 1.03e-04 2.74e+07  -1.0 3.48e-05 -15.1 1.00e+00 6.38e-01h  1
+Reallocating memory for MA57: lfact (6384933)
+  29  4.0157234e+02 1.00e-04 2.94e+07  -1.0 2.26e-04 -14.7 1.10e-01 2.27e-02f  6
+iter    objective    inf_pr   inf_du lg(mu)  ||d||  lg(rg) alpha_du alpha_pr  ls
+  30  4.0157321e+02 2.79e-05 6.36e+07  -1.0 1.08e+02 -15.1 6.79e-02 7.22e-01h  1
+  31  4.0157333e+02 1.82e-05 4.06e+07  -1.0 6.34e+00 -14.7 1.33e-01 3.48e-01f  2
+  32  4.0157355e+02 4.50e-12 1.00e-06  -1.0 7.58e+01 -15.2 1.00e+00 1.00e+00h  1
+  33  5.4204933e+01 5.09e-11 6.97e+04  -8.6 1.56e+01 -14.8 1.00e+00 9.93e-01f  1
+  34  1.3583304e+01 2.97e-11 2.20e+03  -8.6 8.90e-02 -15.2 1.00e+00 9.68e-01f  1
+  35  3.3544953e+00 1.72e-12 2.90e+01  -8.6 4.61e-02 -14.8 1.00e+00 9.87e-01f  1
+  36  8.2834919e-01 4.67e-12 2.63e-02  -8.6 2.28e-02 -15.3 1.00e+00 9.99e-01f  1
+  37  2.0682085e-01 3.36e-12 2.84e-14  -8.6 1.13e-02 -14.9 1.00e+00 1.00e+00f  1
+  38  5.1629718e-02 2.67e-12 2.66e-14  -8.6 5.63e-03 -15.3 1.00e+00 1.00e+00f  1
+  39  1.2831960e-02 1.39e-11 2.66e-14  -8.6 2.81e-03 -14.9 1.00e+00 1.00e+00f  1
+iter    objective    inf_pr   inf_du lg(mu)  ||d||  lg(rg) alpha_du alpha_pr  ls
+  40  3.1325335e-03 1.24e-11 2.66e-14  -8.6 1.41e-03 -15.4 1.00e+00 1.00e+00f  1
+  41  7.0768452e-04 1.67e-11 2.66e-14  -8.6 7.03e-04 -15.0 1.00e+00 1.00e+00f  1
+  42  1.0148120e-04 1.03e-11 2.66e-14  -8.6 1.09e-03 -15.4 1.00e+00 1.00e+00f  1
+  43 -5.0045064e-05 2.59e-11 2.68e-14  -8.6 1.73e-04 -15.0 1.00e+00 1.00e+00f  1
+  44 -9.2789708e-05 3.22e-11 1.09e-14  -9.0 8.78e-05 -14.6 1.00e+00 1.00e+00f  1
+
+Number of Iterations....: 44
+
+                                   (scaled)                 (unscaled)
+Objective...............:  -9.2789707610372622e-05   -9.2789707610372622e-05
+Dual infeasibility......:   1.0852430065710905e-14    1.0852430065710905e-14
+Constraint violation....:   3.2245317527213047e-11    3.2245317527213047e-11
+Complementarity.........:   7.1674961110630873e-09    7.1674961110630873e-09
+Overall NLP error.......:   7.1674961110630873e-09    7.1674961110630873e-09
+
+
+Number of objective function evaluations             = 59
+Number of objective gradient evaluations             = 45
+Number of equality constraint evaluations            = 59
+Number of inequality constraint evaluations          = 0
+Number of equality constraint Jacobian evaluations   = 45
+Number of inequality constraint Jacobian evaluations = 0
+Number of Lagrangian Hessian evaluations             = 44
+Total CPU secs in IPOPT (w/o function evaluations)   =     21.507
+Total CPU secs in NLP function evaluations           =      1.798
+
+EXIT: Optimal Solution Found.
+
+************************ CUTEst statistics ************************
+
+
+ Package used            :  IPOPT
+ Problem                 :  A5ENSNDL  
+ # variables             =           45006
+ # constraints           =           15002
+ # objective functions   =        0.1050000E+03
+ # objective gradients   =        0.4600000E+02
+ # objective Hessians    =        0.4500000E+02
+ # Hessian-vector prdct  =        0.0000000E+00
+ # constraints functions =        0.1060000E+03
+ # constraints gradients =        0.4700000E+02
+ # constraints Hessians  =        0.4500000E+02
+ Exit code               =               0
+ Final f                 =       -9.2789707610372622D-05
+ Bounds feasibility      =        9.9089658301075961D-09
+ Set up time             =            0.82 seconds
+ Solve time              =           45.23 seconds
+
+
+******************************************************************
+

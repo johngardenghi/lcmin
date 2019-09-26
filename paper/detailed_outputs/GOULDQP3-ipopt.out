@@ -1,0 +1,93 @@
+sifdecoder -A pc64.lnx.gfo -st   GOULDQP3
+
+ Problem name: GOULDQP3
+
+ Double precision version will be formed
+
+ The objective function uses 19997 nonlinear groups
+ 
+ There are 9999 linear equality constraints
+ 
+ There are 19999 variables bounded from below and above 
+ 
+ 
+ File successfully decoded
+ CUTEST: tools (double precision version) compiled successfully
+ CUTEst: ipopt (double precision version) compiled successfully
+
+******************************************************************************
+This program contains Ipopt, a library for large-scale nonlinear optimization.
+ Ipopt is released as open source code under the Eclipse Public License (EPL).
+         For more information visit http://projects.coin-or.org/Ipopt
+******************************************************************************
+
+This is Ipopt version trunk, running with linear solver ma57.
+
+Number of nonzeros in equality constraint Jacobian...:    29997
+Number of nonzeros in inequality constraint Jacobian.:        0
+Number of nonzeros in Lagrangian Hessian.............:    39995
+
+Reallocating memory for MA57: lfact (520743)
+Total number of variables............................:    19999
+                     variables with only lower bounds:        0
+                variables with lower and upper bounds:    19999
+                     variables with only upper bounds:        0
+Total number of equality constraints.................:     9999
+Total number of inequality constraints...............:        0
+        inequality constraints with only lower bounds:        0
+   inequality constraints with lower and upper bounds:        0
+        inequality constraints with only upper bounds:        0
+
+iter    objective    inf_pr   inf_du lg(mu)  ||d||  lg(rg) alpha_du alpha_pr  ls
+   0  4.7137189e-05 9.92e-09 2.77e-04  -1.0 0.00e+00    -  0.00e+00 0.00e+00   0
+   1  4.7184000e-05 4.44e-16 4.30e-16  -5.7 1.81e-06    -  1.00e+00 1.00e+00f  1
+   2  4.7139253e-05 4.44e-16 1.47e-05  -8.6 2.38e-07    -  9.89e-01 1.00e+00h  1
+   3  3.5181110e-05 4.44e-16 5.73e-04  -8.6 2.04e-04    -  1.21e-01 1.00e+00f  1
+   4  3.1209454e-05 4.44e-16 1.56e-05  -8.6 4.52e-05    -  9.13e-01 1.00e+00f  1
+   5  3.2755987e-05 4.44e-16 2.22e-16  -8.6 5.73e-05    -  1.00e+00 1.00e+00f  1
+
+Number of Iterations....: 5
+
+                                   (scaled)                 (unscaled)
+Objective...............:   3.2755986785609883e-05    3.2755986785609883e-05
+Dual infeasibility......:   2.2201072360714114e-16    2.2201072360714114e-16
+Constraint violation....:   4.4408920985006262e-16    4.4408920985006262e-16
+Complementarity.........:   5.2991186591145913e-09    5.2991186591145913e-09
+Overall NLP error.......:   5.2991186591145913e-09    5.2991186591145913e-09
+
+
+Number of objective function evaluations             = 6
+Number of objective gradient evaluations             = 6
+Number of equality constraint evaluations            = 6
+Number of inequality constraint evaluations          = 0
+Number of equality constraint Jacobian evaluations   = 6
+Number of inequality constraint Jacobian evaluations = 0
+Number of Lagrangian Hessian evaluations             = 5
+Total CPU secs in IPOPT (w/o function evaluations)   =      0.966
+Total CPU secs in NLP function evaluations           =      0.168
+
+EXIT: Optimal Solution Found.
+
+************************ CUTEst statistics ************************
+
+
+ Package used            :  IPOPT
+ Problem                 :  GOULDQP3  
+ # variables             =           19999
+ # constraints           =            9999
+ # objective functions   =        0.1300000E+02
+ # objective gradients   =        0.7000000E+01
+ # objective Hessians    =        0.6000000E+01
+ # Hessian-vector prdct  =        0.0000000E+00
+ # constraints functions =        0.1400000E+02
+ # constraints gradients =        0.8000000E+01
+ # constraints Hessians  =        0.6000000E+01
+ Exit code               =               0
+ Final f                 =        3.2755986785609883D-05
+ Bounds feasibility      =        0.0000000000000000D+00
+ Set up time             =            0.70 seconds
+ Solve time              =            2.36 seconds
+
+
+******************************************************************
+

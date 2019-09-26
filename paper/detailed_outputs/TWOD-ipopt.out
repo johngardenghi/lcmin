@@ -1,0 +1,17 @@
+sifdecoder -A pc64.lnx.gfo -st   TWOD
+
+ Problem name: TWOD
+
+ Double precision version will be formed
+
+ The objective function uses 1 nonlinear group
+ 
+ There are 67080 linear equality constraints
+ 
+ There are 68840 variables bounded from below and above 
+ There are 1681 fixed variables
+ 
+ 
+ File successfully decoded
+ CUTEST: tools (double precision version) compiled successfully
+ CUTEst: ipopt (double precision version) compiled successfully

@@ -1,0 +1,45 @@
+sifdecoder -A pc64.lnx.gfo -st   BDRY2
+
+ Problem name: BDRY2
+
+ Double precision version will be formed
+
+ The objective function uses 1 nonlinear group
+ 
+ There are 250498 linear equality constraints
+ 
+ There are 250997 variables bounded from below and above 
+ There are 4 fixed variables
+ 
+ 
+ File successfully decoded
+ CUTEST: tools (double precision version) compiled successfully
+ CUTEst: ipopt (double precision version) compiled successfully
+
+******************************************************************************
+This program contains Ipopt, a library for large-scale nonlinear optimization.
+ Ipopt is released as open source code under the Eclipse Public License (EPL).
+         For more information visit http://projects.coin-or.org/Ipopt
+******************************************************************************
+
+This is Ipopt version trunk, running with linear solver ma57.
+
+Number of nonzeros in equality constraint Jacobian...:  1247999
+Number of nonzeros in inequality constraint Jacobian.:        0
+Number of nonzeros in Lagrangian Hessian.............:    63500
+
+Reallocating memory for MA57: lfact (114934824)
+Total number of variables............................:   250997
+                     variables with only lower bounds:        0
+                variables with lower and upper bounds:   250997
+                     variables with only upper bounds:        0
+Total number of equality constraints.................:   250498
+Total number of inequality constraints...............:        0
+        inequality constraints with only lower bounds:        0
+   inequality constraints with lower and upper bounds:        0
+        inequality constraints with only upper bounds:        0
+
+iter    objective    inf_pr   inf_du lg(mu)  ||d||  lg(rg) alpha_du alpha_pr  ls
+   0  1.2349456e-01 9.98e-03 7.63e-05  -1.0 0.00e+00    -  0.00e+00 0.00e+00   0
+   1  1.2253186e-01 9.94e-03 1.63e+00  -1.0 6.33e+00    -  1.59e-03 4.19e-03f  1
+   2  1.2248796e-01 9.94e-03 3.52e+01  -1.0 1.84e+01    -  2.80e-03 1.11e-04f  1

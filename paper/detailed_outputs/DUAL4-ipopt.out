@@ -1,0 +1,101 @@
+sifdecoder -A pc64.lnx.gfo -st   DUAL4
+
+ Problem name: DUAL4
+
+ Double precision version will be formed
+
+ The objective function uses 1 nonlinear group
+ 
+ There is 1 linear equality constraint
+ 
+ There are 75 variables bounded from below and above 
+ 
+ 
+ File successfully decoded
+ CUTEST: tools (double precision version) compiled successfully
+ CUTEst: ipopt (double precision version) compiled successfully
+
+******************************************************************************
+This program contains Ipopt, a library for large-scale nonlinear optimization.
+ Ipopt is released as open source code under the Eclipse Public License (EPL).
+         For more information visit http://projects.coin-or.org/Ipopt
+******************************************************************************
+
+This is Ipopt version trunk, running with linear solver ma57.
+
+Number of nonzeros in equality constraint Jacobian...:       75
+Number of nonzeros in inequality constraint Jacobian.:        0
+Number of nonzeros in Lagrangian Hessian.............:     2799
+
+Total number of variables............................:       75
+                     variables with only lower bounds:        0
+                variables with lower and upper bounds:       75
+                     variables with only upper bounds:        0
+Total number of equality constraints.................:        1
+Total number of inequality constraints...............:        0
+        inequality constraints with only lower bounds:        0
+   inequality constraints with lower and upper bounds:        0
+        inequality constraints with only upper bounds:        0
+
+iter    objective    inf_pr   inf_du lg(mu)  ||d||  lg(rg) alpha_du alpha_pr  ls
+   0  8.4839889e-01 2.50e-01 4.11e+00  -1.0 0.00e+00    -  0.00e+00 0.00e+00   0
+   1  8.4031020e-01 2.40e-15 3.66e-15  -1.0 1.90e-02    -  1.00e+00 1.00e+00f  1
+   2  8.4253822e-01 8.40e-16 3.40e-15  -1.7 1.23e-03    -  1.00e+00 1.00e+00f  1
+   3  7.9104198e-01 2.06e-16 4.06e-01  -3.8 7.74e-03    -  8.05e-01 1.00e+00f  1
+   4  7.6194881e-01 5.20e-18 8.02e-02  -3.8 4.88e-03    -  8.72e-01 1.00e+00f  1
+   5  7.5134343e-01 1.19e-16 1.30e-15  -3.8 2.08e-03    -  1.00e+00 1.00e+00f  1
+   6  7.4724109e-01 2.73e-16 5.14e-03  -5.7 1.22e-03    -  9.63e-01 1.00e+00f  1
+   7  7.4627560e-01 3.37e-16 3.69e-04  -5.7 5.38e-04    -  1.00e+00 9.93e-01f  1
+   8  7.4612612e-01 1.85e-16 1.73e-15  -5.7 2.54e-04    -  1.00e+00 1.00e+00f  1
+   9  7.4609202e-01 9.74e-17 5.40e-05  -8.6 1.34e-04    -  9.99e-01 9.96e-01f  1
+iter    objective    inf_pr   inf_du lg(mu)  ||d||  lg(rg) alpha_du alpha_pr  ls
+  10  7.4609087e-01 9.87e-17 3.93e-15  -8.6 6.56e-05    -  1.00e+00 1.00e+00f  1
+  11  7.4609069e-01 1.18e-16 1.90e-15  -8.6 3.22e-05    -  1.00e+00 1.00e+00f  1
+  12  7.4609066e-01 3.43e-16 1.66e-15  -8.6 1.51e-05    -  1.00e+00 1.00e+00f  1
+  13  7.4609065e-01 1.05e-16 1.58e-15  -8.6 5.92e-06    -  1.00e+00 1.00e+00h  1
+
+Number of Iterations....: 13
+
+                                   (scaled)                 (unscaled)
+Objective...............:   7.4609065156580134e-01    7.4609065156580134e-01
+Dual infeasibility......:   1.5793524532453417e-15    1.5793524532453417e-15
+Constraint violation....:   1.0473392986209973e-16    1.0473392986209973e-16
+Complementarity.........:   7.4075435271881654e-09    7.4075435271881654e-09
+Overall NLP error.......:   7.4075435271881654e-09    7.4075435271881654e-09
+
+
+Number of objective function evaluations             = 14
+Number of objective gradient evaluations             = 14
+Number of equality constraint evaluations            = 14
+Number of inequality constraint evaluations          = 0
+Number of equality constraint Jacobian evaluations   = 14
+Number of inequality constraint Jacobian evaluations = 0
+Number of Lagrangian Hessian evaluations             = 13
+Total CPU secs in IPOPT (w/o function evaluations)   =      0.047
+Total CPU secs in NLP function evaluations           =      0.034
+
+EXIT: Optimal Solution Found.
+
+************************ CUTEst statistics ************************
+
+
+ Package used            :  IPOPT
+ Problem                 :  DUAL4     
+ # variables             =              75
+ # constraints           =               1
+ # objective functions   =        0.2900000E+02
+ # objective gradients   =        0.1500000E+02
+ # objective Hessians    =        0.1400000E+02
+ # Hessian-vector prdct  =        0.0000000E+00
+ # constraints functions =        0.3000000E+02
+ # constraints gradients =        0.1600000E+02
+ # constraints Hessians  =        0.1400000E+02
+ Exit code               =               0
+ Final f                 =        7.4609065156580134D-01
+ Bounds feasibility      =        3.0384818439620454D-09
+ Set up time             =            0.07 seconds
+ Solve time              =            0.15 seconds
+
+
+******************************************************************
+

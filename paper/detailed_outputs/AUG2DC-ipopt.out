@@ -1,0 +1,88 @@
+sifdecoder -A pc64.lnx.gfo -st   AUG2DC
+
+ Problem name: AUG2DC
+
+ Double precision version will be formed
+
+ The objective function uses 20200 nonlinear groups
+ 
+ There are 10000 linear equality constraints
+ 
+ There are 20200 free variables
+ 
+ 
+ File successfully decoded
+ CUTEST: tools (double precision version) compiled successfully
+ CUTEst: ipopt (double precision version) compiled successfully
+
+******************************************************************************
+This program contains Ipopt, a library for large-scale nonlinear optimization.
+ Ipopt is released as open source code under the Eclipse Public License (EPL).
+         For more information visit http://projects.coin-or.org/Ipopt
+******************************************************************************
+
+This is Ipopt version trunk, running with linear solver ma57.
+
+Number of nonzeros in equality constraint Jacobian...:    40000
+Number of nonzeros in inequality constraint Jacobian.:        0
+Number of nonzeros in Lagrangian Hessian.............:    20200
+
+Total number of variables............................:    20200
+                     variables with only lower bounds:        0
+                variables with lower and upper bounds:        0
+                     variables with only upper bounds:        0
+Total number of equality constraints.................:    10000
+Total number of inequality constraints...............:        0
+        inequality constraints with only lower bounds:        0
+   inequality constraints with lower and upper bounds:        0
+        inequality constraints with only upper bounds:        0
+
+iter    objective    inf_pr   inf_du lg(mu)  ||d||  lg(rg) alpha_du alpha_pr  ls
+   0  1.0100000e+04 1.00e+00 1.00e+00  -1.0 0.00e+00    -  0.00e+00 0.00e+00   0
+   1  1.8183681e+06 7.55e-15 2.01e-13  -1.7 3.46e+01    -  1.00e+00 1.00e+00h  1
+
+Number of Iterations....: 1
+
+                                   (scaled)                 (unscaled)
+Objective...............:   1.8183680655701952e+06    1.8183680655701952e+06
+Dual infeasibility......:   2.0072832285222830e-13    2.0072832285222830e-13
+Constraint violation....:   7.5495165674510645e-15    7.5495165674510645e-15
+Complementarity.........:   0.0000000000000000e+00    0.0000000000000000e+00
+Overall NLP error.......:   5.5054999471404425e-14    2.0072832285222830e-13
+
+
+Number of objective function evaluations             = 2
+Number of objective gradient evaluations             = 2
+Number of equality constraint evaluations            = 2
+Number of inequality constraint evaluations          = 0
+Number of equality constraint Jacobian evaluations   = 2
+Number of inequality constraint Jacobian evaluations = 0
+Number of Lagrangian Hessian evaluations             = 1
+Total CPU secs in IPOPT (w/o function evaluations)   =      0.131
+Total CPU secs in NLP function evaluations           =      0.043
+
+EXIT: Optimal Solution Found.
+
+************************ CUTEst statistics ************************
+
+
+ Package used            :  IPOPT
+ Problem                 :  AUG2DC    
+ # variables             =           20200
+ # constraints           =           10000
+ # objective functions   =        0.5000000E+01
+ # objective gradients   =        0.3000000E+01
+ # objective Hessians    =        0.2000000E+01
+ # Hessian-vector prdct  =        0.0000000E+00
+ # constraints functions =        0.6000000E+01
+ # constraints gradients =        0.4000000E+01
+ # constraints Hessians  =        0.2000000E+01
+ Exit code               =               0
+ Final f                 =        1.8183680655701952D+06
+ Bounds feasibility      =        0.0000000000000000D+00
+ Set up time             =            0.74 seconds
+ Solve time              =            0.34 seconds
+
+
+******************************************************************
+

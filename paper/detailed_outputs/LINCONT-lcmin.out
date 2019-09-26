@@ -1,0 +1,45 @@
+
+ Number of variables            :    1257
+ Number of equality constraints :     419
+
+ Number of implicit equalities found:    106
+
+ The fixed variables were removed.
+ Number of fixed variables     :    1114
+
+ Number of lower bounded variables:       0
+ Number of upper bounded variables:       0
+
+ WARNING: The matrix A does not have full rank.
+          The preprocessor will fix it.
+
+ Flag of LCMIN:
+
+     The problem may be infeasible.
+
+ ====================================================
+                      STATISTICS                     
+ ====================================================
+ GENERAL:                                            
+
+           Preprocessing time (in seconds):      0.67
+            Optimization time (in seconds):      0.00
+
+                      Inner Iterations (IIT):       0
+                      Outer Iterations (OIT):       0
+                  Function Evaluations (FEV):       0
+         Function Gradient Evaluations (GEV):       0
+          Function Hessian Evaluations (HEV):       0
+          Barrier Function Evaluations (BFE):       0
+ Barrier Function Gradient Evaluations (BGE):       0
+ ====================================================
+ AVERAGE:                                            
+
+ Inner Iterations per Outer Iterations  :      0.0000
+ FEV per IIT:      0.0000    FEV per OIT:      0.0000
+ GEV per IIT:      0.0000    GEV per OIT:      0.0000
+ HEV per IIT:      0.0000    HEV per OIT:      0.0000
+ BFE per IIT:      0.0000    BFE per OIT:      0.0000
+ BGE per IIT:      0.0000    BGE per OIT:      0.0000
+ ====================================================
+

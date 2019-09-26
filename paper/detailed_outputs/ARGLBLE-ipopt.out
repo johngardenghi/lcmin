@@ -1,0 +1,56 @@
+sifdecoder -A pc64.lnx.gfo -st   ARGLBLE
+
+ Problem name: ARGLBLE
+
+ Double precision version will be formed
+
+ 
+ There are 400 linear equality constraints
+ 
+ There are 200 free variables
+ 
+ 
+ File successfully decoded
+ CUTEST: tools (double precision version) compiled successfully
+ CUTEst: ipopt (double precision version) compiled successfully
+
+******************************************************************************
+This program contains Ipopt, a library for large-scale nonlinear optimization.
+ Ipopt is released as open source code under the Eclipse Public License (EPL).
+         For more information visit http://projects.coin-or.org/Ipopt
+******************************************************************************
+
+This is Ipopt version trunk, running with linear solver ma57.
+
+Number of nonzeros in equality constraint Jacobian...:    80000
+Number of nonzeros in inequality constraint Jacobian.:        0
+Number of nonzeros in Lagrangian Hessian.............:        0
+
+Exception of type: TOO_FEW_DOF in file "../../../../Ipopt/src/Interfaces/IpIpoptApplication.cpp" at line 937:
+ Exception message: status != TOO_FEW_DEGREES_OF_FREEDOM evaluated false: Too few degrees of freedom (rethrown)!
+
+EXIT: Problem has too few degrees of freedom.
+
+************************ CUTEst statistics ************************
+
+
+ Package used            :  IPOPT
+ Problem                 :  ARGLBLE   
+ # variables             =             200
+ # constraints           =             400
+ # objective functions   =        0.1000000E+01
+ # objective gradients   =        0.1000000E+01
+ # objective Hessians    =        0.1000000E+01
+ # Hessian-vector prdct  =        0.0000000E+00
+ # constraints functions =        0.2000000E+01
+ # constraints gradients =        0.2000000E+01
+ # constraints Hessians  =        0.1000000E+01
+ Exit code               =             -10
+ Final f                 =        9.8813129168249309-324
+ Bounds feasibility      =        0.0000000000000000D+00
+ Set up time             =            0.53 seconds
+ Solve time              =            0.08 seconds
+
+
+******************************************************************
+

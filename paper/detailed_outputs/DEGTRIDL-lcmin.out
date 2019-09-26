@@ -1,0 +1,200 @@
+
+ ==============================================================================
+ This is ALGENCAN 3.1.1.
+ ALGENCAN, an Augmented Lagrangian method for nonlinear programming, is part of
+ the TANGO Project: Trustable Algorithms for Nonlinear General Optimization.
+ See http://www.ime.usp.br/~egbirgin/tango/ for details.
+ ==============================================================================
+
+ Processing array of parameters with   3 entrances:
+
+ IGNORE-OBJECTIVE-FUNCTION                    
+ ITERATIONS-OUTPUT-DETAIL                                                    11
+ TRUNCATED-NEWTON-LINE-SEARCH-INNER-SOLVER                                   ''
+
+ The specification file is not being used.
+
+ Available HSL subroutines = MA57           
+
+ ALGENCAN PARAMETERS:
+
+ firstde                =                    T
+ seconde                =                    T
+ truehpr                =                    T
+ hptype in TN           =               TRUEHP
+ lsslvr in TR           =            MA57/NONE
+ lsslvr in NW           =            MA57/NONE
+ lsslvr in ACCPROC      =            MA57/NONE
+ innslvr                =                   TN
+ accproc                =                    T
+ rmfixv                 =                    T
+ slacks                 =                    F
+ scale                  =                    T
+ epsfeas                =           1.0000D-09
+ epsopt                 =           1.0000D-08
+ efstain                =           3.1623D-05
+ eostain                =           1.0000D-12
+ efacc                  =           3.1623D-05
+ eoacc                  =           1.0000D-04
+ iprint                 =                   11
+ ncomp                  =                    6
+
+ Specification filename =                   ''
+ Output filename        =          'lcmin.out'
+ Solution filename      =                   ''
+
+ Number of variables               :  100001
+ Number of equality constraints    :       1
+ Number of inequality constraints  :       0
+ Number of bound constraints       :  100001
+ Number of fixed variables         :       0
+
+ There are no fixed variables to be removed.
+
+ Objective function scale factor   : 1.0D+00
+ Smallest constraints scale factor : 1.0D+00
+
+ Since the scaling factor(s) is(are) equal to one, scaling was inhibited.
+
+     Entry to GENCAN.
+     Number of variables:  100001
+     Required optimality tolerance: 1.0D-08
+
+     It         function  gpsupn   xsupn stesupn   nfree   SPGit in-face    fcnt
+      0   5.40788185D-16 3.3D-08 1.0D+00
+      1   5.40788185D-16 3.3D-08 1.0D+00 1.1D-16  100001       0       1      14
+      2   5.40788185D-16 3.3D-08 1.0D+00 0.0D+00  100001       1       1      69
+      3   5.40788185D-16 3.3D-08 1.0D+00 0.0D+00  100001       1       2      83
+
+     Flag of GENCAN: Lack of progress in the functional value, its gradient and
+     the current point. Probably, an exaggerated small norm of the continuous
+     projected gradient is being required to declare convergence.
+
+
+ User-provided subroutines calls counters: 
+
+ Subroutine fsub     (coded=F):        0
+ Subroutine gsub     (coded=F):        0
+ Subroutine hsub     (coded=F):        0
+ Subroutine csub     (coded=F):        0 (       0 calls per constraint in avg)
+ Subroutine jacsub   (coded=F):        0 (       0 calls per constraint in avg)
+ Subroutine hcsub    (coded=F):        0 (       0 calls per constraint in avg)
+ Subroutine fcsub    (coded=T):       83
+ Subroutine gjacsub  (coded=T):        6
+ Subroutine gjacpsub (coded=F):        0
+ Subroutine hlsub    (coded=T):        2
+ Subroutine hlpsub   (coded=F):        0
+
+
+ Total CPU time in seconds =     0.04
+
+ ==============================================================================
+
+ The initial point found is acceptably feasible. LCMIN will continue.
+
+ Initial point computed successfully.
+
+                                            achieved                  desired        
+ Unscaled feasibility ..............:   3.2887328416109085D-08   1.0000000000000001D-09
+ Smallest distance to lower bound ..:   9.9999000010211603D-01   1.0000000000000000D-03
+
+ Starting LCMIN.
+ Number of variables   :  100001
+ Number of constraints :       1
+
+ Scale factor for the objective function   : 1.0D+00
+ Smallest scale factor for the constraints : 1.0D+00
+
+ ==========================================================
+ outer barrier   objective       scaled      outer   inner
+  ite   param     function     obj funct    opt err   ite 
+     0 1.0D-01  9.999956D-01  9.999956D-01 1.000D+00     0 
+
+
+     1 2.0D-02  9.999956D-01  9.999956D-01 1.000D+00     0C
+
+    inner barrier   scaled     scaled     min     min    NW   SE     dx      alpha    alpha    inner   time (s)
+     ite   param   obj func     feas      x-l     u-x   pert pert   norm      max             opt err 
+        1 2.0D-02  6.132D-01  1.946D-07 5.4D-01 0.0D+00    0    0 1.24D+00 1.00D+00 1.00D+00 2.472D-01     0.12
+        2 2.0D-02  5.309D-01  4.177D-07 3.3D-01 0.0D+00    0    0 1.14D+00 1.00D+00 1.00D+00 5.576D-02     0.10
+
+
+     2 2.8D-03  5.309436D-01  5.309436D-01 7.576D-02     2C
+
+    inner barrier   scaled     scaled     min     min    NW   SE     dx      alpha    alpha    inner   time (s)
+     ite   param   obj func     feas      x-l     u-x   pert pert   norm      max             opt err 
+        1 2.8D-03  5.097D-01  5.806D-08 1.9D-01 0.0D+00    0    0 7.19D-01 1.00D+00 1.00D+00 1.725D-02     0.08
+
+
+     3 1.5D-04  5.096631D-01  5.096631D-01 2.007D-02     3C
+
+    inner barrier   scaled     scaled     min     min    NW   SE     dx      alpha    alpha    inner   time (s)
+     ite   param   obj func     feas      x-l     u-x   pert pert   norm      max             opt err 
+        1 1.5D-04  5.025D-01  3.585D-07 9.9D-02 0.0D+00    0    0 1.07D+00 1.00D+00 1.00D+00 4.962D-03     0.08
+        2 1.5D-04  5.007D-01  9.470D-08 5.1D-02 0.0D+00    0    0 2.04D+00 1.00D+00 1.00D+00 1.204D-03     0.08
+
+
+     4 1.8D-06  5.006678D-01  5.006678D-01 1.354D-03     5C
+
+    inner barrier   scaled     scaled     min     min    NW   SE     dx      alpha    alpha    inner   time (s)
+     ite   param   obj func     feas      x-l     u-x   pert pert   norm      max             opt err 
+        1 1.8D-06  5.002D-01  1.020D-07 2.6D-02 0.0D+00    0    0 1.11D+00 1.00D+00 1.00D+00 3.423D-04     0.08
+        2 1.8D-06  5.000D-01  2.034D-07 1.3D-02 0.0D+00    0    0 3.76D+00 1.00D+00 1.00D+00 8.512D-05     0.07
+        3 1.8D-06  5.000D-01  2.113D-07 6.7D-03 0.0D+00    0    0 1.94D+00 1.00D+00 1.00D+00 2.083D-05     0.07
+        4 1.8D-06  5.000D-01  2.339D-07 3.6D-03 0.0D+00    0    0 1.61D+00 1.00D+00 1.00D+00 4.784D-06     0.07
+
+
+     5 2.5D-09  5.000038D-01  5.000038D-01 6.628D-06     9C
+
+    inner barrier   scaled     scaled     min     min    NW   SE     dx      alpha    alpha    inner   time (s)
+     ite   param   obj func     feas      x-l     u-x   pert pert   norm      max             opt err 
+        1 2.5D-09  5.000D-01  1.421D-07 1.8D-03 0.0D+00    0    0 6.97D-01 1.00D+00 1.00D+00 1.657D-06     0.07
+        2 2.5D-09  5.000D-01  2.110D-07 9.1D-04 0.0D+00    0    0 1.02D+01 1.00D+00 1.00D+00 4.135D-07     0.07
+        3 2.5D-09  5.000D-01  2.124D-07 4.6D-04 0.0D+00    0    0 4.72D+00 1.00D+00 1.00D+00 1.028D-07     0.07
+        4 2.5D-09  5.000D-01  2.114D-07 2.3D-04 0.0D+00    0    0 3.16D+00 1.00D+00 1.00D+00 2.508D-08     0.07
+        5 2.5D-09  5.000D-01  2.115D-07 2.3D-04 0.0D+00    0    0 1.51D+00 1.00D+00 2.44D-04 5.337D-05     0.10
+        6 2.5D-09  5.000D-01  2.116D-07 9.7D-05 0.0D+00    0    0 1.95D+00 1.00D+00 1.00D+00 2.170D-09     0.07
+
+
+     6 1.0D-09  5.000002D-01  5.000002D-01 4.675D-09    15C
+ ==========================================================
+
+ FINAL RESULTS:
+                            scaled                   unscaled
+  Objective Funct:   5.0000018450373318D-01    5.0000018450373318D-01
+  Lagrangian Grad:   7.9882994748829647D-16    7.9882994748829647D-16
+ Final Point Feas:   2.1158484742045403D-07    2.1158484742045403D-07
+ Bounds violation:   0.0000000000000000D+00    0.0000000000000000D+00
+ Lower Bound Comp:   4.6754694891170598D-09    4.6754694891170598D-09
+ Upper Bound Comp:   0.0000000000000000D+00    0.0000000000000000D+00
+
+ Flag of LCMIN:
+
+     Acceptable feasible optimal solution found.
+
+ ====================================================
+                      STATISTICS                     
+ ====================================================
+ GENERAL:                                            
+
+           Preprocessing time (in seconds):      0.44
+            Optimization time (in seconds):      1.28
+
+                      Inner Iterations (IIT):      15
+                      Outer Iterations (OIT):       6
+                  Function Evaluations (FEV):      28
+         Function Gradient Evaluations (GEV):      16
+          Function Hessian Evaluations (HEV):      15
+          Barrier Function Evaluations (BFE):      42
+ Barrier Function Gradient Evaluations (BGE):      15
+ ====================================================
+ AVERAGE:                                            
+
+ Inner Iterations per Outer Iterations  :      2.5000
+ FEV per IIT:      1.8667    FEV per OIT:      4.6667
+ GEV per IIT:      1.0667    GEV per OIT:      2.6667
+ HEV per IIT:      1.0000    HEV per OIT:      2.5000
+ BFE per IIT:      2.8000    BFE per OIT:      7.0000
+ BGE per IIT:      1.0000    BGE per OIT:      2.5000
+ ====================================================
+

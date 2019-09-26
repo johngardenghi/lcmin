@@ -1,0 +1,103 @@
+sifdecoder -A pc64.lnx.gfo -st   HS54
+
+ Problem name: HS54
+
+ Double precision version will be formed
+
+ The objective function uses 1 nonlinear group
+ 
+ There is 1 linear equality constraint
+ 
+ There are 6 variables bounded from below and above 
+ 
+ 
+ File successfully decoded
+ CUTEST: tools (double precision version) compiled successfully
+ CUTEst: ipopt (double precision version) compiled successfully
+
+******************************************************************************
+This program contains Ipopt, a library for large-scale nonlinear optimization.
+ Ipopt is released as open source code under the Eclipse Public License (EPL).
+         For more information visit http://projects.coin-or.org/Ipopt
+******************************************************************************
+
+This is Ipopt version trunk, running with linear solver ma57.
+
+Number of nonzeros in equality constraint Jacobian...:        2
+Number of nonzeros in inequality constraint Jacobian.:        0
+Number of nonzeros in Lagrangian Hessian.............:       21
+
+Total number of variables............................:        6
+                     variables with only lower bounds:        0
+                variables with lower and upper bounds:        6
+                     variables with only upper bounds:        0
+Total number of equality constraints.................:        1
+Total number of inequality constraints...............:        0
+        inequality constraints with only lower bounds:        0
+   inequality constraints with lower and upper bounds:        0
+        inequality constraints with only upper bounds:        0
+
+iter    objective    inf_pr   inf_du lg(mu)  ||d||  lg(rg) alpha_du alpha_pr  ls
+   0 -7.6509929e-01 5.60e+03 6.12e-01  -1.0 0.00e+00    -  0.00e+00 0.00e+00   0
+   1 -1.5406973e-01 0.00e+00 9.92e-01  -1.0 1.61e+00    -  8.89e-01 1.00e+00h  1
+   2 -1.5467193e-01 1.82e-12 2.51e-03  -1.0 3.27e+00    -  9.90e-01 1.00e+00f  1
+   3 -1.8524556e-01 0.00e+00 1.32e-03  -1.0 3.60e+02    -  9.47e-01 1.00e+00f  1
+   4 -1.8533661e-01 1.82e-12 9.41e-05  -1.0 9.50e-01  -4.0 9.90e-01 1.00e+00f  1
+   5 -1.8557964e-01 0.00e+00 9.51e-05  -1.0 2.85e+00  -4.5 9.91e-01 1.00e+00f  1
+   6 -1.8625050e-01 1.82e-12 8.74e-05  -1.7 7.86e+00  -5.0 1.00e+00 1.00e+00f  1
+   7 -1.8824178e-01 1.82e-12 8.60e-05  -3.8 2.32e+01  -5.4 1.00e+00 1.00e+00f  1
+   8 -1.9443536e-01 1.82e-12 8.79e-05  -5.7 7.12e+01  -5.9 1.00e+00 1.00e+00f  1
+   9 -2.1519719e-01 0.00e+00 1.05e-04  -5.7 2.28e+02  -6.4 1.00e+00 1.00e+00f  1
+iter    objective    inf_pr   inf_du lg(mu)  ||d||  lg(rg) alpha_du alpha_pr  ls
+  10 -3.0396708e-01 1.82e-12 1.94e-03  -5.7 8.47e+02  -6.9 1.00e+00 1.00e+00f  1
+  11 -8.5946558e-01 0.00e+00 6.87e-01  -5.7 5.02e+03  -7.3 1.00e+00 1.00e+00f  1
+  12 -9.0731174e-01 9.09e-13 2.62e-02  -5.7 5.62e+07    -  8.90e-01 1.00e+00f  1
+  13 -9.0807475e-01 9.09e-13 1.41e-04  -5.7 6.19e+06    -  1.00e+00 1.00e+00f  1
+  14 -9.0807476e-01 0.00e+00 4.70e-10  -5.7 1.07e+04    -  1.00e+00 1.00e+00h  1
+  15 -9.0807476e-01 9.09e-13 2.78e-12  -8.6 3.73e+01    -  1.00e+00 1.00e+00f  1
+
+Number of Iterations....: 15
+
+                                   (scaled)                 (unscaled)
+Objective...............:  -9.0807475748577948e-01   -9.0807475748577948e-01
+Dual infeasibility......:   2.7824344453229306e-12    2.7824344453229306e-12
+Constraint violation....:   2.2737367544323207e-14    9.0949470177292824e-13
+Complementarity.........:   2.5402447897541160e-09    2.5402447897541160e-09
+Overall NLP error.......:   2.5402447897541160e-09    2.5402447897541160e-09
+
+
+Number of objective function evaluations             = 16
+Number of objective gradient evaluations             = 16
+Number of equality constraint evaluations            = 16
+Number of inequality constraint evaluations          = 0
+Number of equality constraint Jacobian evaluations   = 16
+Number of inequality constraint Jacobian evaluations = 0
+Number of Lagrangian Hessian evaluations             = 15
+Total CPU secs in IPOPT (w/o function evaluations)   =      0.030
+Total CPU secs in NLP function evaluations           =      0.002
+
+EXIT: Optimal Solution Found.
+
+************************ CUTEst statistics ************************
+
+
+ Package used            :  IPOPT
+ Problem                 :  HS54      
+ # variables             =               6
+ # constraints           =               1
+ # objective functions   =        0.3300000E+02
+ # objective gradients   =        0.1700000E+02
+ # objective Hessians    =        0.1600000E+02
+ # Hessian-vector prdct  =        0.0000000E+00
+ # constraints functions =        0.3400000E+02
+ # constraints gradients =        0.1800000E+02
+ # constraints Hessians  =        0.1600000E+02
+ Exit code               =               0
+ Final f                 =       -9.0807475748577948D-01
+ Bounds feasibility      =        0.0000000000000000D+00
+ Set up time             =            0.00 seconds
+ Solve time              =            0.08 seconds
+
+
+******************************************************************
+

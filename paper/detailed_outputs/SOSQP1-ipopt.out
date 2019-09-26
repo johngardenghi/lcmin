@@ -1,0 +1,93 @@
+sifdecoder -A pc64.lnx.gfo -st   SOSQP1
+
+ Problem name: SOSQP1
+
+ Double precision version will be formed
+
+ The objective function uses 1 nonlinear group
+ 
+ There are 2501 linear equality constraints
+ 
+ There are 5000 variables bounded from below and above 
+ 
+ 
+ File successfully decoded
+ CUTEST: tools (double precision version) compiled successfully
+ CUTEst: ipopt (double precision version) compiled successfully
+
+******************************************************************************
+This program contains Ipopt, a library for large-scale nonlinear optimization.
+ Ipopt is released as open source code under the Eclipse Public License (EPL).
+         For more information visit http://projects.coin-or.org/Ipopt
+******************************************************************************
+
+This is Ipopt version trunk, running with linear solver ma57.
+
+Number of nonzeros in equality constraint Jacobian...:    10000
+Number of nonzeros in inequality constraint Jacobian.:        0
+Number of nonzeros in Lagrangian Hessian.............:     7500
+
+Total number of variables............................:     5000
+                     variables with only lower bounds:        0
+                variables with lower and upper bounds:     5000
+                     variables with only upper bounds:        0
+Total number of equality constraints.................:     2501
+Total number of inequality constraints...............:        0
+        inequality constraints with only lower bounds:        0
+   inequality constraints with lower and upper bounds:        0
+        inequality constraints with only upper bounds:        0
+
+iter    objective    inf_pr   inf_du lg(mu)  ||d||  lg(rg) alpha_du alpha_pr  ls
+   0  0.0000000e+00 2.50e+03 0.00e+00  -1.0 0.00e+00    -  0.00e+00 0.00e+00   0
+   1 -5.8292626e-11 2.50e+01 9.38e-01  -1.0 1.00e+00    -  5.21e-01 9.90e-01h  1
+   2 -7.8662737e-11 2.50e-01 9.02e-02  -1.0 1.00e-02    -  1.00e+00 9.90e-01h  1
+   3  1.0517888e-11 2.47e-03 1.98e+00  -1.7 1.00e-04    -  1.00e+00 9.90e-01h  1
+   4 -1.7634498e-11 9.09e-13 3.64e-12  -1.7 9.90e-07    -  1.00e+00 1.00e+00h  1
+   5 -7.2762659e-08 7.85e-08 7.29e-13  -5.7 7.11e-15    -  1.00e+00 1.00e+00H  1
+   6 -1.7634498e-11 5.01e-12 2.00e-15  -8.6 2.91e-11    -  1.00e+00 1.00e+00h  1
+
+Number of Iterations....: 6
+
+                                   (scaled)                 (unscaled)
+Objective...............:  -1.7634498114364651e-11   -1.7634498114364651e-11
+Dual infeasibility......:   1.9984014443252818e-15    1.9984014443252818e-15
+Constraint violation....:   5.0100440501800235e-12    5.0100440501800235e-12
+Complementarity.........:   2.9261273103930306e-09    2.9261273103930306e-09
+Overall NLP error.......:   2.9261273103930306e-09    2.9261273103930306e-09
+
+
+Number of objective function evaluations             = 8
+Number of objective gradient evaluations             = 7
+Number of equality constraint evaluations            = 8
+Number of inequality constraint evaluations          = 0
+Number of equality constraint Jacobian evaluations   = 7
+Number of inequality constraint Jacobian evaluations = 0
+Number of Lagrangian Hessian evaluations             = 6
+Total CPU secs in IPOPT (w/o function evaluations)   =      0.146
+Total CPU secs in NLP function evaluations           =      0.027
+
+EXIT: Optimal Solution Found.
+
+************************ CUTEst statistics ************************
+
+
+ Package used            :  IPOPT
+ Problem                 :  SOSQP1    
+ # variables             =            5000
+ # constraints           =            2501
+ # objective functions   =        0.1600000E+02
+ # objective gradients   =        0.8000000E+01
+ # objective Hessians    =        0.7000000E+01
+ # Hessian-vector prdct  =        0.0000000E+00
+ # constraints functions =        0.1700000E+02
+ # constraints gradients =        0.9000000E+01
+ # constraints Hessians  =        0.7000000E+01
+ Exit code               =               0
+ Final f                 =       -1.7634498114364651D-11
+ Bounds feasibility      =        1.4432899320127035D-14
+ Set up time             =            0.29 seconds
+ Solve time              =            0.39 seconds
+
+
+******************************************************************
+

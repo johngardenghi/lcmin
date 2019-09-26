@@ -1,0 +1,107 @@
+sifdecoder -A pc64.lnx.gfo -st   OSORIO
+
+ Problem name: OSORIO
+
+ Double precision version will be formed
+
+ The objective function uses 2 linear groups
+ 
+ There are 202 linear equality constraints
+ 
+ There are 201 variables bounded only from above 
+ There are 10000 variables bounded from below and above 
+ 
+ 
+ File successfully decoded
+ CUTEST: tools (double precision version) compiled successfully
+ CUTEst: ipopt (double precision version) compiled successfully
+
+******************************************************************************
+This program contains Ipopt, a library for large-scale nonlinear optimization.
+ Ipopt is released as open source code under the Eclipse Public License (EPL).
+         For more information visit http://projects.coin-or.org/Ipopt
+******************************************************************************
+
+This is Ipopt version trunk, running with linear solver ma57.
+
+Number of nonzeros in equality constraint Jacobian...:    20402
+Number of nonzeros in inequality constraint Jacobian.:        0
+Number of nonzeros in Lagrangian Hessian.............:    10201
+
+Total number of variables............................:    10201
+                     variables with only lower bounds:        0
+                variables with lower and upper bounds:    10000
+                     variables with only upper bounds:      201
+Total number of equality constraints.................:      202
+Total number of inequality constraints...............:        0
+        inequality constraints with only lower bounds:        0
+   inequality constraints with lower and upper bounds:        0
+        inequality constraints with only upper bounds:        0
+
+iter    objective    inf_pr   inf_du lg(mu)  ||d||  lg(rg) alpha_du alpha_pr  ls
+   0  2.0572381e+00 1.02e+00 2.02e+00  -1.0 0.00e+00    -  0.00e+00 0.00e+00   0
+   1  3.6988394e+00 6.00e-08 2.13e+01  -1.0 3.13e-01    -  4.43e-02 1.00e+00h  1
+   2  4.5696627e+00 6.56e-15 7.07e-02  -1.0 7.01e+00    -  9.64e-01 1.00e+00f  1
+   3  7.3834309e+00 2.11e-14 1.96e+00  -1.0 1.61e+02    -  4.33e-02 1.00e+00f  1
+   4  1.0186713e+01 5.50e-09 1.42e-03  -1.0 8.91e+01    -  9.90e-01 1.00e+00f  1
+   5  1.2715810e+01 7.30e-12 3.58e-05  -1.0 5.97e+01    -  9.91e-01 1.00e+00f  1
+   6  5.6334428e+00 1.06e-13 2.00e-07  -1.7 1.07e+02    -  1.00e+00 1.00e+00f  1
+   7  3.1096332e+00 9.43e-12 2.83e-08  -2.5 9.24e+01    -  1.00e+00 1.00e+00f  1
+   8  2.3160370e+00 8.66e-15 1.50e-09  -3.8 5.75e+01    -  1.00e+00 1.00e+00f  1
+   9  2.1170990e+00 5.44e-15 1.50e-09  -3.8 2.86e+01    -  1.00e+00 1.00e+00f  1
+iter    objective    inf_pr   inf_du lg(mu)  ||d||  lg(rg) alpha_du alpha_pr  ls
+  10  2.0591081e+00 1.28e-13 1.84e-11  -5.7 1.56e+01    -  1.00e+00 1.00e+00f  1
+  11  2.0456760e+00 4.09e-15 1.84e-11  -5.7 7.58e+00    -  1.00e+00 1.00e+00f  1
+  12  2.0428031e+00 3.21e-15 1.84e-11  -5.7 3.62e+00    -  1.00e+00 1.00e+00f  1
+  13  2.0421009e+00 2.49e-15 2.51e-14  -8.6 1.91e+00    -  1.00e+00 1.00e+00f  1
+  14  2.0419849e+00 1.65e-15 2.51e-14  -8.6 8.66e-01    -  1.00e+00 1.00e+00f  1
+  15  2.0419709e+00 3.03e-15 2.51e-14  -8.6 3.18e-01    -  1.00e+00 1.00e+00f  1
+  16  2.0419698e+00 8.15e-16 2.51e-14  -8.6 7.38e-02    -  1.00e+00 1.00e+00f  1
+  17  2.0419697e+00 4.48e-16 2.51e-14  -8.6 1.05e-02    -  1.00e+00 1.00e+00h  1
+  18  2.0419696e+00 5.48e-16 9.15e-15  -9.0 2.94e-03    -  1.00e+00 1.00e+00h  1
+
+Number of Iterations....: 18
+
+                                   (scaled)                 (unscaled)
+Objective...............:   2.0419696471328219e+00    2.0419696471328219e+00
+Dual infeasibility......:   9.1451683110914788e-15    9.1451683110914788e-15
+Constraint violation....:   5.4817261840867104e-16    5.4817261840867104e-16
+Complementarity.........:   4.0072678892597125e-09    4.0072678892597125e-09
+Overall NLP error.......:   4.0072678892597125e-09    4.0072678892597125e-09
+
+
+Number of objective function evaluations             = 19
+Number of objective gradient evaluations             = 19
+Number of equality constraint evaluations            = 19
+Number of inequality constraint evaluations          = 0
+Number of equality constraint Jacobian evaluations   = 19
+Number of inequality constraint Jacobian evaluations = 0
+Number of Lagrangian Hessian evaluations             = 18
+Total CPU secs in IPOPT (w/o function evaluations)   =      1.240
+Total CPU secs in NLP function evaluations           =      0.113
+
+EXIT: Optimal Solution Found.
+
+************************ CUTEst statistics ************************
+
+
+ Package used            :  IPOPT
+ Problem                 :  OSORIO    
+ # variables             =           10201
+ # constraints           =             202
+ # objective functions   =        0.3900000E+02
+ # objective gradients   =        0.2000000E+02
+ # objective Hessians    =        0.1900000E+02
+ # Hessian-vector prdct  =        0.0000000E+00
+ # constraints functions =        0.4000000E+02
+ # constraints gradients =        0.2100000E+02
+ # constraints Hessians  =        0.1900000E+02
+ Exit code               =               0
+ Final f                 =        2.0419696471328219D+00
+ Bounds feasibility      =        9.5471008876302221D-09
+ Set up time             =            0.52 seconds
+ Solve time              =            3.01 seconds
+
+
+******************************************************************
+

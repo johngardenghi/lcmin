@@ -1,0 +1,114 @@
+sifdecoder -A pc64.lnx.gfo -st   DALLASL
+
+ Problem name: DALLASL
+
+ Double precision version will be formed
+
+ The objective function uses 1 nonlinear group
+ 
+ There are 667 linear equality constraints
+ 
+ There are 906 variables bounded from below and above 
+ 
+ 
+ File successfully decoded
+ CUTEST: tools (double precision version) compiled successfully
+ CUTEst: ipopt (double precision version) compiled successfully
+
+******************************************************************************
+This program contains Ipopt, a library for large-scale nonlinear optimization.
+ Ipopt is released as open source code under the Eclipse Public License (EPL).
+         For more information visit http://projects.coin-or.org/Ipopt
+******************************************************************************
+
+This is Ipopt version trunk, running with linear solver ma57.
+
+Number of nonzeros in equality constraint Jacobian...:     1812
+Number of nonzeros in inequality constraint Jacobian.:        0
+Number of nonzeros in Lagrangian Hessian.............:      888
+
+Total number of variables............................:      906
+                     variables with only lower bounds:        0
+                variables with lower and upper bounds:      906
+                     variables with only upper bounds:        0
+Total number of equality constraints.................:      667
+Total number of inequality constraints...............:        0
+        inequality constraints with only lower bounds:        0
+   inequality constraints with lower and upper bounds:        0
+        inequality constraints with only upper bounds:        0
+
+iter    objective    inf_pr   inf_du lg(mu)  ||d||  lg(rg) alpha_du alpha_pr  ls
+   0  2.7746898e+08 4.50e+00 5.09e+01  -1.0 0.00e+00    -  0.00e+00 0.00e+00   0
+   1  2.6900138e+08 4.19e+00 4.86e+01  -1.0 5.42e+01    -  3.17e-02 6.78e-02f  1
+   2  2.5024268e+08 3.80e+00 4.42e+01  -1.0 9.56e+01    -  5.24e-02 9.36e-02f  1
+   3  2.1379078e+08 3.25e+00 3.80e+01  -1.0 1.01e+02    -  4.64e-02 1.46e-01f  1
+   4  1.7577858e+08 2.72e+00 3.21e+01  -1.0 9.39e+01    -  1.06e-01 1.62e-01f  1
+   5  1.0340475e+08 1.68e+00 2.15e+01  -1.0 1.10e+02    -  7.96e-02 3.81e-01f  1
+   6  8.1989937e+07 1.40e+00 1.80e+01  -1.0 1.08e+02    -  1.31e-01 1.72e-01f  1
+   7  1.5991995e+07 1.40e-02 2.84e+01  -1.0 8.28e+01    -  1.29e-01 9.90e-01f  1
+   8  4.7282018e+06 1.35e-04 2.45e+03  -1.0 5.28e+01    -  2.30e-01 9.90e-01f  1
+   9  1.9514647e+06 3.73e-14 2.25e+05  -1.0 4.77e+01    -  3.03e-01 1.00e+00f  1
+iter    objective    inf_pr   inf_du lg(mu)  ||d||  lg(rg) alpha_du alpha_pr  ls
+  10  9.6676147e+05 4.92e-07 1.85e+05  -1.0 4.95e+01    -  1.78e-01 1.00e+00f  1
+  11  4.9660243e+05 8.35e-14 6.63e+04  -1.0 4.38e+01    -  3.31e-01 1.00e+00f  1
+  12  2.3204308e+05 3.55e-14 5.96e+06  -1.0 4.78e+01    -  3.94e-01 1.00e+00f  1
+  13  6.7409684e+04 1.08e-09 4.29e+06  -1.0 3.78e+01    -  2.80e-01 1.00e+00f  1
+  14 -2.6340269e+04 5.24e-10 3.16e+06  -1.0 3.51e+01    -  2.64e-01 1.00e+00f  1
+  15 -8.6450682e+04 3.96e-10 1.35e+06  -1.0 3.48e+01    -  5.72e-01 1.00e+00f  1
+  16 -1.4468870e+05 2.26e-10 9.75e+05  -1.0 6.49e+01    -  2.78e-01 1.00e+00f  1
+  17 -1.7475446e+05 1.27e-10 3.22e+05  -1.0 7.57e+01    -  6.70e-01 1.00e+00f  1
+  18 -1.9547470e+05 1.89e-10 1.83e+05  -1.0 9.70e+01    -  4.31e-01 1.00e+00f  1
+  19 -2.0014506e+05 8.90e-11 3.22e+04  -1.0 5.78e+01    -  8.24e-01 1.00e+00f  1
+iter    objective    inf_pr   inf_du lg(mu)  ||d||  lg(rg) alpha_du alpha_pr  ls
+  20 -2.0100097e+05 6.32e-11 9.74e-04  -1.0 4.94e+01    -  1.00e+00 1.00e+00f  1
+  21 -2.0242050e+05 4.99e-09 4.24e-01  -3.8 1.20e+01    -  9.06e-01 1.00e+00f  1
+  22 -2.0260189e+05 4.99e-09 4.48e-01  -3.8 1.80e+01    -  9.03e-01 9.93e-01f  1
+  23 -2.0260223e+05 4.99e-09 1.72e-05  -3.8 8.57e+00    -  1.00e+00 1.00e+00f  1
+  24 -2.0260412e+05 5.00e-09 7.46e-01  -8.6 1.97e+00    -  9.86e-01 9.97e-01f  1
+  25 -2.0260413e+05 5.00e-09 7.32e-07  -8.6 9.71e-01    -  1.00e+00 1.00e+00h  1
+
+Number of Iterations....: 25
+
+                                   (scaled)                 (unscaled)
+Objective...............:  -1.0486960512010769e+02   -2.0260412670799435e+05
+Dual infeasibility......:   7.3235940197385461e-07    1.4148907770117237e-03
+Constraint violation....:   4.9999998745282412e-09    4.9999998745282412e-09
+Complementarity.........:   3.5041472763240876e-08    6.7698805384336480e-05
+Overall NLP error.......:   6.0506778277769108e-09    1.4148907770117237e-03
+
+
+Number of objective function evaluations             = 26
+Number of objective gradient evaluations             = 26
+Number of equality constraint evaluations            = 26
+Number of inequality constraint evaluations          = 0
+Number of equality constraint Jacobian evaluations   = 26
+Number of inequality constraint Jacobian evaluations = 0
+Number of Lagrangian Hessian evaluations             = 25
+Total CPU secs in IPOPT (w/o function evaluations)   =      0.260
+Total CPU secs in NLP function evaluations           =      0.156
+
+EXIT: Optimal Solution Found.
+
+************************ CUTEst statistics ************************
+
+
+ Package used            :  IPOPT
+ Problem                 :  DALLASL   
+ # variables             =             906
+ # constraints           =             667
+ # objective functions   =        0.5300000E+02
+ # objective gradients   =        0.2700000E+02
+ # objective Hessians    =        0.2600000E+02
+ # Hessian-vector prdct  =        0.0000000E+00
+ # constraints functions =        0.5400000E+02
+ # constraints gradients =        0.2800000E+02
+ # constraints Hessians  =        0.2600000E+02
+ Exit code               =               0
+ Final f                 =       -2.0260412670799435D+05
+ Bounds feasibility      =        1.3332052901660063D-06
+ Set up time             =            0.09 seconds
+ Solve time              =            0.91 seconds
+
+
+******************************************************************
+

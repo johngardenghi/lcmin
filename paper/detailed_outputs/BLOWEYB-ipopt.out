@@ -1,0 +1,97 @@
+sifdecoder -A pc64.lnx.gfo -st   BLOWEYB
+
+ Problem name: BLOWEYB
+
+ Double precision version will be formed
+
+ The objective function uses 1 nonlinear group
+ 
+ There are 2002 linear equality constraints
+ 
+ There are 2001 free variables
+ There are 2001 variables bounded from below and above 
+ 
+ 
+ File successfully decoded
+ CUTEST: tools (double precision version) compiled successfully
+ CUTEst: ipopt (double precision version) compiled successfully
+
+******************************************************************************
+This program contains Ipopt, a library for large-scale nonlinear optimization.
+ Ipopt is released as open source code under the Eclipse Public License (EPL).
+         For more information visit http://projects.coin-or.org/Ipopt
+******************************************************************************
+
+This is Ipopt version trunk, running with linear solver ma57.
+
+Number of nonzeros in equality constraint Jacobian...:    10003
+Number of nonzeros in inequality constraint Jacobian.:        0
+Number of nonzeros in Lagrangian Hessian.............:     8003
+
+Total number of variables............................:     4002
+                     variables with only lower bounds:        0
+                variables with lower and upper bounds:     2001
+                     variables with only upper bounds:        0
+Total number of equality constraints.................:     2002
+Total number of inequality constraints...............:        0
+        inequality constraints with only lower bounds:        0
+   inequality constraints with lower and upper bounds:        0
+        inequality constraints with only upper bounds:        0
+
+iter    objective    inf_pr   inf_du lg(mu)  ||d||  lg(rg) alpha_du alpha_pr  ls
+   0 -2.9823322e-04 3.33e-03 1.44e-08  -1.0 0.00e+00    -  0.00e+00 0.00e+00   0
+Reallocating memory for MA57: lfact (104671)
+   1 -1.4533123e-02 1.52e-14 1.15e-15  -1.0 1.11e+04    -  1.00e+00 1.00e+00f  1
+   2 -1.4830523e-02 1.20e-13 9.23e-16  -2.5 1.12e+04    -  1.00e+00 1.00e+00f  1
+   3 -1.5102308e-02 9.94e-14 1.19e-04  -3.8 2.10e+03    -  9.43e-01 1.00e+00f  1
+   4 -1.5137636e-02 8.08e-14 1.17e-05  -5.7 4.82e+02    -  9.68e-01 1.00e+00f  1
+   5 -1.5162581e-02 1.86e-13 8.63e-16  -5.7 3.19e+01    -  1.00e+00 1.00e+00f  1
+   6 -1.5222450e-02 2.26e-13 1.45e-07  -8.6 6.39e+00    -  9.77e-01 1.00e+00f  1
+   7 -1.5226122e-02 2.21e-13 8.51e-16  -8.6 1.09e+00    -  1.00e+00 1.00e+00f  1
+   8 -1.5226135e-02 1.93e-14 1.01e-15  -9.0 5.58e-02    -  1.00e+00 1.00e+00h  1
+
+Number of Iterations....: 8
+
+                                   (scaled)                 (unscaled)
+Objective...............:  -1.5226135328994724e-02   -1.5226135328994724e-02
+Dual infeasibility......:   1.0066403994811938e-15    1.0066403994811938e-15
+Constraint violation....:   1.9317880628477724e-14    1.9317880628477724e-14
+Complementarity.........:   9.4273987761921277e-10    9.4273987761921277e-10
+Overall NLP error.......:   9.4273987761921277e-10    9.4273987761921277e-10
+
+
+Number of objective function evaluations             = 9
+Number of objective gradient evaluations             = 9
+Number of equality constraint evaluations            = 9
+Number of inequality constraint evaluations          = 0
+Number of equality constraint Jacobian evaluations   = 9
+Number of inequality constraint Jacobian evaluations = 0
+Number of Lagrangian Hessian evaluations             = 8
+Total CPU secs in IPOPT (w/o function evaluations)   =      0.215
+Total CPU secs in NLP function evaluations           =      0.049
+
+EXIT: Optimal Solution Found.
+
+************************ CUTEst statistics ************************
+
+
+ Package used            :  IPOPT
+ Problem                 :  BLOWEYB   
+ # variables             =            4002
+ # constraints           =            2002
+ # objective functions   =        0.1900000E+02
+ # objective gradients   =        0.1000000E+02
+ # objective Hessians    =        0.9000000E+01
+ # Hessian-vector prdct  =        0.0000000E+00
+ # constraints functions =        0.2000000E+02
+ # constraints gradients =        0.1100000E+02
+ # constraints Hessians  =        0.9000000E+01
+ Exit code               =               0
+ Final f                 =       -1.5226135328994724D-02
+ Bounds feasibility      =        0.0000000000000000D+00
+ Set up time             =            0.35 seconds
+ Solve time              =            0.62 seconds
+
+
+******************************************************************
+

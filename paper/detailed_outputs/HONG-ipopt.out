@@ -1,0 +1,95 @@
+sifdecoder -A pc64.lnx.gfo -st   HONG
+
+ Problem name: HONG
+
+ Double precision version will be formed
+
+ The objective function uses 1 nonlinear group
+ 
+ There is 1 linear equality constraint
+ 
+ There are 4 variables bounded from below and above 
+ 
+ 
+ File successfully decoded
+ CUTEST: tools (double precision version) compiled successfully
+ CUTEst: ipopt (double precision version) compiled successfully
+
+******************************************************************************
+This program contains Ipopt, a library for large-scale nonlinear optimization.
+ Ipopt is released as open source code under the Eclipse Public License (EPL).
+         For more information visit http://projects.coin-or.org/Ipopt
+******************************************************************************
+
+This is Ipopt version trunk, running with linear solver ma57.
+
+Number of nonzeros in equality constraint Jacobian...:        4
+Number of nonzeros in inequality constraint Jacobian.:        0
+Number of nonzeros in Lagrangian Hessian.............:        4
+
+Total number of variables............................:        4
+                     variables with only lower bounds:        0
+                variables with lower and upper bounds:        4
+                     variables with only upper bounds:        0
+Total number of equality constraints.................:        1
+Total number of inequality constraints...............:        0
+        inequality constraints with only lower bounds:        0
+   inequality constraints with lower and upper bounds:        0
+        inequality constraints with only upper bounds:        0
+
+iter    objective    inf_pr   inf_du lg(mu)  ||d||  lg(rg) alpha_du alpha_pr  ls
+   0  1.4943888e+02 1.00e+00 4.37e+01  -1.0 0.00e+00    -  0.00e+00 0.00e+00   0
+   1  3.0556483e+01 1.67e-16 6.47e+01  -1.0 2.67e-01    -  7.42e-01 1.00e+00f  1
+   2  2.4391593e+01 2.78e-17 1.77e+01  -1.0 2.65e-01    -  6.18e-01 1.00e+00f  1
+   3  2.2634083e+01 5.55e-17 3.09e+00  -1.0 5.65e-02    -  1.00e+00 1.00e+00f  1
+   4  2.2573753e+01 0.00e+00 1.82e-01  -1.0 1.69e-02    -  1.00e+00 1.00e+00f  1
+   5  2.2571104e+01 5.55e-17 1.70e-03  -2.5 2.94e-03    -  1.00e+00 1.00e+00f  1
+   6  2.2571087e+01 1.11e-16 1.56e-05  -3.8 2.83e-04    -  1.00e+00 1.00e+00f  1
+   7  2.2571087e+01 1.11e-16 1.10e-08  -5.7 6.69e-06    -  1.00e+00 1.00e+00h  1
+   8  2.2571087e+01 0.00e+00 1.55e-12  -8.6 7.16e-08    -  1.00e+00 1.00e+00h  1
+
+Number of Iterations....: 8
+
+                                   (scaled)                 (unscaled)
+Objective...............:   6.6417553061339456e+00    2.2571087363489060e+01
+Dual infeasibility......:   1.5500109139246683e-12    5.2674978435662424e-12
+Constraint violation....:   0.0000000000000000e+00    0.0000000000000000e+00
+Complementarity.........:   2.5069481924207535e-09    8.5195169136405187e-09
+Overall NLP error.......:   2.5069481924207535e-09    8.5195169136405187e-09
+
+
+Number of objective function evaluations             = 9
+Number of objective gradient evaluations             = 9
+Number of equality constraint evaluations            = 9
+Number of inequality constraint evaluations          = 0
+Number of equality constraint Jacobian evaluations   = 9
+Number of inequality constraint Jacobian evaluations = 0
+Number of Lagrangian Hessian evaluations             = 8
+Total CPU secs in IPOPT (w/o function evaluations)   =      0.015
+Total CPU secs in NLP function evaluations           =      0.001
+
+EXIT: Optimal Solution Found.
+
+************************ CUTEst statistics ************************
+
+
+ Package used            :  IPOPT
+ Problem                 :  HONG      
+ # variables             =               4
+ # constraints           =               1
+ # objective functions   =        0.1900000E+02
+ # objective gradients   =        0.1000000E+02
+ # objective Hessians    =        0.9000000E+01
+ # Hessian-vector prdct  =        0.0000000E+00
+ # constraints functions =        0.2000000E+02
+ # constraints gradients =        0.1100000E+02
+ # constraints Hessians  =        0.9000000E+01
+ Exit code               =               0
+ Final f                 =        2.2571087363489060D+01
+ Bounds feasibility      =        0.0000000000000000D+00
+ Set up time             =            0.00 seconds
+ Solve time              =            0.06 seconds
+
+
+******************************************************************
+
