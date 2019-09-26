@@ -2,9 +2,7 @@
 
 This is an interior point method for linearly constrained minimization.
 
-## Compiling LCMIN
-
-To compile LCMIN:
+## Pre-requisites
 
 1. You need to create a `./lib` folder and include the following static libraries
    * `libalgencan.a` generated from [Algencan](https://www.ime.usp.br/~egbirgin/tango/downloads.php)
@@ -18,5 +16,3 @@ To compile LCMIN:
    * `hsl_zd11_double.mod` (generated after compiling HS MA48)
    
 3. You need to include [mc58ad.f](http://www.hsl.rl.ac.uk/catalogue/mc58.html) under `./sources/hsl`
-
-After these steps are done, you can run `make`.
